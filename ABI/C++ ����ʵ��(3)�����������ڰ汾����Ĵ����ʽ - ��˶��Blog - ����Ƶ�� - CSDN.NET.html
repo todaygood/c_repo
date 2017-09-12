@@ -1,0 +1,759 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>C++ 工程实践(3)：采用有利于版本管理的代码格式 - 陈硕的Blog - 博客频道 - CSDN.NET</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="description" content=" 版本管理(version controlling)是每个程序员的基本技能，C++ 程序员也不例外。版本管理的基本功能之一是追踪代码变化，让你能清楚地知道代码是如何一步步变成现在的这个样子，以及每次 check-in 都具体改动了哪些内部。所谓“有利于版本管理”的代码格式，就是指在代码中合理使用换行符，对 diff 工具友好，让 diff 的结果清晰明了地表达代码的改动。" />
+<script src="http://static.blog.csdn.net/scripts/jquery.js" type="text/javascript"></script>
+<script type="text/javascript" src="http://static.blog.csdn.net/scripts/ad.js?v=1.1"></script>
+<link rel="Stylesheet" type="text/css" href="http://static.blog.csdn.net/skin/default/css/style.css?v=1.1" />
+<link id="RSSLink" title="RSS" type="application/rss+xml" rel="alternate" href="/Solstice/rss/list" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<link type="text/css" rel="stylesheet" href="http://static.blog.csdn.net/scripts/SyntaxHighlighter/styles/default.css" />
+</head>
+<body>
+<script src="http://csdnimg.cn/pubnav/js/pub_topnav_2011.js"type="text/javascript"></script>
+
+<div id="container">
+<div id="header">
+    <div class="header">
+        <div id="blog_title">
+            <h1><a href="/Solstice">陈硕的Blog</a></h1>
+            <h2>吾尝终日而思矣，不如须臾之所学也。吾尝跂而望矣，不如登高之博见也。……君子生非异也，善假于物也。 @bnu_chenshuo</h2>
+            <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+<div id="navigator">
+    <div class="navigator_bg"></div>
+    <div class="navigator">
+        <ul>
+            <li id="btnContents"><a href="/Solstice?viewmode=contents"><span><img src="http://static.blog.csdn.net/images/ico_list.gif">目录视图</span></a></li>
+            <li id="btnView"><a href="/Solstice?viewmode=list"><span><img src="http://static.blog.csdn.net/images/ico_summary.gif">摘要视图</span></a></li>
+            <li id="btnRss"><a href="/Solstice/rss/list"><span><img src="http://static.blog.csdn.net/images/ico_rss.gif">订阅</span></a></li>
+</ul>
+    </div>
+</div>
+<script type="text/javascript">
+    var username = "Solstice";
+    var _blogger = username;
+    var blog_address = "http://blog.csdn.net/solstice";
+    var static_host = "http://static.blog.csdn.net";
+    var currentUserName = "todaygood2004";
+</script>
+
+<div id="body">
+<div id="main">
+<div class="main">
+<div class="notice"> 
+
+<a href="http://www.csdn.net/article/2013-07-09/2816160" target="_blank">
+<font color=red>专访赵霏：应把握机会 HTML5游戏开发已臻成熟 </font></a>
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<a href="http://blog.csdn.net/blogdevteam/article/details/9226601" target="_blank"><font color=blue>2013年7月微软MVP当选名单揭晓
+</font></a>
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+
+<a href="http://blog.csdn.net/csdnproduct/article/details/9226265
+"target="_blank">
+<font color=red>CSDN博客频道自定义摘要、图片水印、热门标签等功能上线啦 
+
+
+ </font></a>
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+
+<a href="http://blog.csdn.net/blogdevteam/article/details/9136613"target="_blank">
+<font color=red>CSDN博客第二期云计算最佳博主评选
+
+ </font></a>
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+
+<a href=""target="_blank">
+<font color=blue>
+ </font></a>
+
+
+
+
+</div>
+<div id="article_details" class="details">
+    <div class="article_title">
+    <span class="ico ico_type_Original"></span>
+    <h3>
+        <span class="link_title"><a href="/solstice/article/details/6225538">
+        C++ 工程实践(3)：采用有利于版本管理的代码格式
+        </a></span>
+    </h3>
+</div>
+
+        
+    <div class="article_manage">
+        <span class="link_categories">
+        分类：
+            <a href="/Solstice/article/category/9111">c++</a> 
+            <a href="/Solstice/article/category/793463">C++ 工程实践</a> 
+        </span>
+    <span class="link_postdate">2011-03-05 15:16</span>
+    <span class="link_view" title="阅读次数">9452人阅读</span>
+    <span class="link_comments" title="评论次数"><a href="#comments">评论</a>(24)</span>
+    <span class="link_collect"><a href="javascript:void(0);" onclick="javascript:collectArticle('C++ 工程实践(3)：采用有利于版本管理的代码格式','6225538');return false;" title="收藏">收藏</a></span>
+    <span class="link_report"><a href="#report"  onclick="javascript:report(6225538,2);return false;" title="举报">举报</a></span>
+    
+</div>
+<div class="tag2box"><a href='http://blog.csdn.net/tag/details.html?tag=c%2b%2b' target=_blank>c++</a><a href='http://blog.csdn.net/tag/details.html?tag=class' target=_blank>class</a><a href='http://blog.csdn.net/tag/details.html?tag=%e6%ad%a3%e5%88%99%e8%a1%a8%e8%be%be%e5%bc%8f' target=_blank>正则表达式</a><a href='http://blog.csdn.net/tag/details.html?tag=timer' target=_blank>timer</a><a href='http://blog.csdn.net/tag/details.html?tag=buffer' target=_blank>buffer</a><a href='http://blog.csdn.net/tag/details.html?tag=overloading' target=_blank>overloading</a></div>
+
+
+    
+<div id="article_content" class="article_content">
+<p>陈硕 (giantchen_AT_gmail)</p>
+<p>Blog.csdn.net/Solstice</p>
+<p>版本管理(version controlling)是每个程序员的基本技能，C++ 程序员也不例外。版本管理的基本功能之一是追踪代码变化，让你能清楚地知道代码是如何一步步变成现在的这个样子，以及每次 check-in 都具体改动了哪些内部。无论是传统的集中式版本管理工具，如 Subversion，还是新型的分布式管理工具，如 Git/Hg，比较两个版本(revision)的差异都是其基本功能，即俗称&ldquo;做一下 diff&rdquo;。</p>
+<p>diff 的输出是个窥孔(peephole)，它的上下文有限（diff &ndash;u 默认显示前后 3 行）。在做 code review 的时候，如果能凭这&ldquo;一孔之见&rdquo;就能发现代码改动有问题，那就再好也不过了。</p>
+<p>&nbsp;</p>
+<p>C 和 C++ 都是自由格式的语言，代码中的换行符被当做 white space 来对待。（当然，我们说的是预处理(preprocess)之后的情况）。对编译器来说一模一样的代码可以有多种写法，比如</p>
+<p><span style="font-family: Consolas; color: #0000ff;">foo(1, 2, 3, 4);</span>
+</p>
+<p>和 </p>
+<p><span style="font-family: Consolas; color: #0000ff;">foo(1,</span>
+</p>
+<p><span style="font-family: Consolas; color: #0000ff;">&nbsp;&nbsp;&nbsp; 2,</span>
+</p>
+<p><span style="font-family: Consolas; color: #0000ff;">&nbsp;&nbsp;&nbsp; 3,</span>
+</p>
+<p><span style="font-family: Consolas; color: #0000ff;">&nbsp;&nbsp;&nbsp; 4);</span>
+</p>
+<p>词法分析的结果是一样的，语意也完全一样。</p>
+<p>对人来说，这两种写法读起来不一样，对与版本管理工具来说，同样功能的修改造成的差异(diff)也往往不一样。所谓&ldquo;有利于版本管理&rdquo;，就是指在代码中合理使用换行符，对 diff 工具友好，让 diff 的结果清晰明了地表达代码的改动。（diff 一般以行为单位，也可以以单词为单位，本文只考虑最常见的 diff by lines。）</p>
+<p>这里举一些例子。</p>
+<h1>对 diff 友好的代码格式</h1>
+<h2>1. 多行注释也用 //，不用 /* */</h2>
+<p>Scott Meyers 写的《Effective C++》第二版第 4 条建议使用 C++ 风格，我这里为他补充一条理由：对 diff 友好。比如，我要注释一大段代码（其实这不是个好的做法，但是在实践中有时会遇到），如果用 /* */，那么得到的 diff 是：</p>
+<pre class="prettyprint"><strong>diff --git a/examples/asio/tutorial/timer5/timer.cc b/examples/asio/tutorial/timer5/timer.cc
+--- a/examples/asio/tutorial/timer5/timer.cc
++++ b/examples/asio/tutorial/timer5/timer.cc</strong>
+@@ -18,6 +18,7 @@ class Printer : boost::noncopyable
+     loop2_-&gt;runAfter(1, boost::bind(&amp;Printer::print2, this));
+   }
+<span style="color: #008000;">+  /*</span>
+   ~Printer()
+   {
+     std::cout &lt;&lt; "Final count is " &lt;&lt; count_ &lt;&lt; "/n";
+@@ -38,6 +39,7 @@ class Printer : boost::noncopyable
+       loop1_-&gt;quit();
+     }
+   }
+<span style="color: #008000;">+  */</span>
+   void print2()
+   {</pre>
+<p>从这样的 diff output 能看出注释了哪些代码吗？</p>
+<p>如果用 //，结果会清晰很多：</p>
+<pre class="prettyprint"><strong>diff --git a/examples/asio/tutorial/timer5/timer.cc b/examples/asio/tutorial/timer5/timer.cc
+--- a/examples/asio/tutorial/timer5/timer.cc
++++ b/examples/asio/tutorial/timer5/timer.cc</strong>
+@@ -18,26 +18,26 @@ class Printer : boost::noncopyable
+     loop2_-&gt;runAfter(1, boost::bind(&amp;Printer::print2, this));
+   }
+<span style="color: #bb0000;">-  ~Printer()
+-  {
+-    std::cout &lt;&lt; "Final count is " &lt;&lt; count_ &lt;&lt; "/n";
+-  }</span>
+<span style="color: #008000;">+  // ~Printer()
++  // {
++  //   std::cout &lt;&lt; "Final count is " &lt;&lt; count_ &lt;&lt; "/n";
++  // }</span>
+<span style="color: #bb0000;">-  void print1()
+-  {
+-    muduo::MutexLockGuard lock(mutex_);
+-    if (count_ &lt; 10)
+-    {
+-      std::cout &lt;&lt; "Timer 1: " &lt;&lt; count_ &lt;&lt; "/n";
+-      ++count_;
+-
+-      loop1_-&gt;runAfter(1, boost::bind(&amp;Printer::print1, this));
+-    }
+-    else
+-    {
+-      loop1_-&gt;quit();
+-    }
+-  }</span>
+<span style="color: #008000;">+  // void print1()
++  // {
++  //   muduo::MutexLockGuard lock(mutex_);
++  //   if (count_ &lt; 10)
++  //   {
++  //     std::cout &lt;&lt; "Timer 1: " &lt;&lt; count_ &lt;&lt; "/n";
++  //     ++count_;
++  //
++  //     loop1_-&gt;runAfter(1, boost::bind(&amp;Printer::print1, this));
++  //   }
++  //   else
++  //   {
++  //     loop1_-&gt;quit();
++  //   }
++  // }</span>
+   void print2()
+   {</pre>
+<p>同样的道理，取消注释的时候 // 也比 /* */ 更清晰。</p>
+<p>另外，如果用 /* */ 来做多行注释，从 diff 不一定能看出来你是在修改代码还是修改注释。比如以下 diff 似乎修改了 muduo::EventLoop::runAfter 的调用参数：</p>
+<pre class="prettyprint"><strong>diff --git a/examples/asio/tutorial/timer5/timer.cc b/examples/asio/tutorial/timer5/timer.cc
+--- a/examples/asio/tutorial/timer5/timer.cc
++++ b/examples/asio/tutorial/timer5/timer.cc</strong>
+@@ -32,7 +32,7 @@ class Printer : boost::noncopyable
+       std::cout &lt;&lt; "Timer 1: " &lt;&lt; count_ &lt;&lt; "/n";
+       ++count_;
+<span style="color: #bb0000;">-      loop1_-&gt;runAfter(1, boost::bind(&amp;Printer::print1, this));</span>
+<span style="color: #008000;">+      loop1_-&gt;runAfter(2, boost::bind(&amp;Printer::print1, this));</span>
+     }
+     else
+     {</pre>
+<p>其实这个修改发生在注释里边 （要增加上下文才能看到， diff -U 20，多一道手续，降低了工作效率），对代码行为没有影响：</p>
+<pre class="prettyprint"><strong>diff --git a/examples/asio/tutorial/timer5/timer.cc b/examples/asio/tutorial/timer5/timer.cc
+--- a/examples/asio/tutorial/timer5/timer.cc
++++ b/examples/asio/tutorial/timer5/timer.cc</strong>
+@@ -20,31 +20,31 @@ class Printer : boost::noncopyable
+<span style="background-color: #ffff00;"><span style="color: #ff0000;">   /*</span></span>
+   ~Printer()
+   {
+     std::cout &lt;&lt; "Final count is " &lt;&lt; count_ &lt;&lt; "/n";
+   }
+
+   void print1()
+   {
+     muduo::MutexLockGuard lock(mutex_);
+     if (count_ &lt; 10)
+     {
+       std::cout &lt;&lt; "Timer 1: " &lt;&lt; count_ &lt;&lt; "/n";
+       ++count_;
+-      loop1_-&gt;runAfter(1, boost::bind(&amp;Printer::print1, this));
++      loop1_-&gt;runAfter(2, boost::bind(&amp;Printer::print1, this));
+     }
+     else
+     {
+       loop1_-&gt;quit();
+     }
+   }
+<span style="background-color: #ffff00;"><span style="color: #ff0000;"><strong>   */</strong></span></span>
+   void print2()
+   {
+     muduo::MutexLockGuard lock(mutex_);
+     if (count_ &lt; 10)
+     {
+       std::cout &lt;&lt; "Timer 2: " &lt;&lt; count_ &lt;&lt; "/n";
+       ++count_;</pre>
+<p>总之，不要用 /* */ 来注释多行代码。</p>
+<p>或许是时过境迁，大家都在用 // 注释了，《Effective C++》第三版去掉了这一条建议。</p>
+<h2>2. 局部变量与成员变量的定义</h2>
+<p>基本原则是，一行代码只定义一个变量，比如 </p>
+<p>double x;</p>
+<p>double y;</p>
+<p>将来代码增加一个 double z 的时候，diff 输出一眼就能看出改了什么：</p>
+<pre class="prettyprint">@@ -63,6 +63,7 @@ private:
+   int count_;
+   double x;
+   double y;
+<span style="color: #008000;">+  double z;</span>
+ };
+
+ int main()</pre>
+<p>如果把 x 和 y 写在一行，diff 的输出就得多看几眼才知道。</p>
+<pre class="prettyprint">@@ -61,7 +61,7 @@ private:
+   muduo::net::EventLoop* loop1_;
+   muduo::net::EventLoop* loop2_;
+   int count_;
+<span style="color: #bb0000;">-  double x, y;</span>
+<span style="color: #008000;">+  double x, y, z;</span>
+ };
+
+ int main()</pre>
+<p>所以，一行只定义一个变量更利于版本管理。同样的道理适用于 enum 成员的定义，数组的初始化列表等等。</p>
+<h2>3. 函数声明中的参数</h2>
+<p>如果函数的参数大于 3 个，那么在逗号后面换行，这样每个参数占一行，便于 diff。以 muduo::net::TcpClient 为例：</p>
+<pre class="prettyprint">class TcpClient : boost::noncopyable
+{
+ public:
+ <span style="color: #008000;"> TcpClient(EventLoop* loop,
+            const InetAddress&amp; serverAddr,
+            const string&amp; name);</span>
+</pre>
+<p>如果将来 TcpClient 的构造函数增加或修改一个参数，那么很容易从 diff 看出来。这恐怕比在一行长代码里数逗号要高效一些。 </p>
+<h2>4. 函数调用时的参数</h2>
+<p>在函数调用的时候，如果参数大于 3 个，那么把实参分行写。以 muduo::net::EPollPoller 为例：</p>
+<pre class="prettyprint">Timestamp EPollPoller::poll(int timeoutMs, ChannelList* activeChannels)
+{
+  int numEvents = <span style="color: #008000;">::epoll_wait(epollfd_,
+                               &amp;*events_.begin(),
+                               static_cast(events_.size()),
+                               timeoutMs);</span>
+  Timestamp now(Timestamp::now());</pre>
+<p>这样一来，如果将来重构引入了一个新参数（好吧，epoll_wait 不会有这个问题），那么函数定义和函数调用的地方的 diff 具有相同的形式（比方说都是在倒数第二行加了一行内容），很容易肉眼验证有没有错位。如果参数写在一行里边，就得睁大眼睛数逗号了。</p>
+<h2>5. class 初始化列表的写法</h2>
+<p>同样的道理，class 初始化列表(initializer list)也遵循一行一个的原则，这样将来如果加入新的成员变量，那么两处（class 定义和 ctor 定义）的 diff 具有相同的形式，让错误无所遁形。以 muduo::net::Buffer 为例：</p>
+<pre class="prettyprint">class Buffer : public muduo::copyable
+{
+ public:
+  static const size_t kCheapPrepend = 8;
+  static const size_t kInitialSize = 1024;
+
+  Buffer()
+<span style="color: #008000;">    : buffer_(kCheapPrepend + kInitialSize),
+      readerIndex_(kCheapPrepend),
+      writerIndex_(kCheapPrepend)</span>
+  {
+  }
+
+  // 省略</pre>
+<pre class="prettyprint"> private:
+<span style="color: #008000;">   std::vector buffer_;
+   size_t readerIndex_;
+   size_t writerIndex_;</span>
+
+   static const char kCRLF[];
+};</pre>
+<p>注意，初始化列表的顺序必须和数据成员声明的顺序相同。</p>
+<h2>6. 与 namespace 有关的缩进</h2>
+<p>Google 的 <a href="http://google-styleguide.googlecode.com/svn/trunk/cppguide.xml">C++ 编程规范</a>
+明确指出，<a href="http://google-styleguide.googlecode.com/svn/trunk/cppguide.xml#Namespace_Formatting">namespace 不增加缩进</a>
+。这么做非常有道理，方便 diff &ndash;p 把函数名显示在每个 diff chunk 的头上。</p>
+<p>如果对函数实现做 diff，chunk name 是函数名，让人一眼就能看出改的是哪个函数。如下图，红色划线部分。</p>
+<p><img style="background-image: none; border-right-width: 0px; padding-left: 0px; padding-right: 0px; display: inline; border-top-width: 0px; border-bottom-width: 0px; border-left-width: 0px; padding-top: 0px" title="diff_function" src="http://hi.csdn.net/attachment/201103/5/0_12993093985BjM.gif" border="0" alt="diff_function" width="553" height="203" />
+</p>
+<p>如果对 class 做 diff，那么 chunk name 就是 class name。</p>
+<p><img style="background-image: none; border-right-width: 0px; padding-left: 0px; padding-right: 0px; display: inline; border-top-width: 0px; border-bottom-width: 0px; border-left-width: 0px; padding-top: 0px" title="diff_class" src="http://hi.csdn.net/attachment/201103/5/0_1299309399E3eV.gif" border="0" alt="diff_class" width="443" height="314" />
+</p>
+<p>diff 原本是为 C 语言设计的，C 语言没有 namespace 缩进一说，所以它默认会找到&ldquo;顶格写&rdquo;的函数作为一个 diff chunk 的名字，如果函数名前面有空格，它就不认得了。muduo 的代码都遵循这一规则，例如：</p>
+<pre class="prettyprint"><span style="background-color: #ffff00;">namespace muduo
+{</span>
+///
+/// Time stamp in UTC, in microseconds resolution.
+///
+/// This class is immutable.
+/// It's recommended to pass it by value, since it's passed in register on x64.
+///
+<span style="color: #008000;">// class 从第一列开始写，不缩进</span>
+class Timestamp : public muduo::copyable,
+                  public boost::less_than_comparable
+{
+</pre>
+<pre class="prettyprint"><span style="color: #008000;">// 函数的实现也从第一列开始写，不缩进。</span>
+Timestamp Timestamp::now()
+{
+  struct timeval tv;
+  gettimeofday(&amp;tv, NULL);
+  int64_t seconds = tv.tv_sec;
+  return Timestamp(seconds * kMicroSecondsPerSecond + tv.tv_usec);
+}</pre>
+<p>相反，boost 中的某些库的代码是按 namespace 来缩进的，这样的话看 diff 往往不知道改动的是哪个 class 的哪个成员函数。</p>
+<p>这个或许可以通过设置 diff 取函数名的正则表达式来解决，但是如果我们写代码的时候就注意把函数&ldquo;顶格写&rdquo;，那么就不用去动 diff 的默认设置了。另外，正则表达式不能完全匹配函数名，因为函数名是上下文无关语法(context-free syntax)，你没办法写一个正则语法去匹配上下文无关语法。我总能写出某种函数声明，让你的正则表达式失效（想想函数的返回类型，它可能是一个非常复杂的东西，更别说参数了）。更何况 C++ 的语法是上下文相关的，比如你猜 Foo qux; 是个表达式还是变量定义？</p>
+<h2>7. public 与 private</h2>
+<p>我认为这是 C++ 语法的一个缺陷，如果我把一个成员函数从 public 区移到 private 区，那么从 diff 上看不出来我干了什么，例如：</p>
+<pre class="prettyprint"><strong>diff --git a/muduo/net/TcpClient.h b/muduo/net/TcpClient.h
+--- a/muduo/net/TcpClient.h
++++ b/muduo/net/TcpClient.h
+</strong>
+@@ -37,7 +37,6 @@ class TcpClient : boost::noncopyable
+   void connect();
+   void disconnect();
+<span style="color: #bb0000;">-  bool retry() const;</span>
+   void enableRetry() { retry_ = true; }
+
+   /// Set connection callback.
+@@ -60,6 +59,7 @@ class TcpClient : boost::noncopyable
+   void newConnection(int sockfd);
+   /// Not thread safe, but in loop
+   void removeConnection(const TcpConnectionPtr&amp; conn);
+<span style="color: #008000;">+  bool retry() const;</span>
+
+   EventLoop* loop_;
+   boost::scoped_ptr connector_; // avoid revealing Connector</pre>
+<p>从上面的 diff 能看出我把 retry() 变成 private 了吗？对此我也没有好的解决办法，总不能每个函数前面都写上 public: 或 private: 吧？</p>
+<p>对此 Java 和 C# 都做得比较好，它们把 public/private 等修饰符放到每个成员函数的定义中。这么做增加了信息的冗余度，让 diff 的结果更直观。</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h2>8. 头文件的排列顺序</h2>
+<p>除了必须放在首位的头文件，其余的都按字典序排列。这样将多人修改时冲突的可能性降到最小。另外，Makefile 中的文件列表也按字典序排列，以降低冲突的可能。</p>
+<p>参考 muduo/**/*.cc</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>欢迎补充。</p>
+<h1>对 grep 友好的代码风格</h1>
+<h2>操作符重载</h2>
+<p>C++工具匮乏，在一个项目里，要找到一个函数的定义或许不算太难（最多就是分析一下重载和模板特化），但是要找到一个函数的使用就难多了。不比 Java，在 Eclipse 里 Ctrl+Shift+G 就能找到所有的引用点。 </p>
+<p>假如我要做一个重构，想先找到代码里所有用到 muduo::timeDifference 的地方，判断一下工作是否可行，基本上惟一的办法是grep。用 grep 还不能排除同名的函数和注释里的内容。这也说明为什么要用 // 来引导注释，因为在 grep 的时候，一眼就能看出这行代码是在注释里的。 </p>
+<p>在我看来，operator overloading 应仅限于和 STL algorithm/container 配合时使用，比如 transform() 和 map，其他情况都用具名函数为宜。原因之一是，我根本用 grep 找不到在哪儿用到了 operator-()。这也是 muduo::Timestamp 只提供 operator&lt;() 而不提供 operator+() operator-() 的原因，我提供了两个函数 timeDifference 和 addTime 来实现所需的功能。 </p>
+<p>又比如，Google Protocol Buffers 的回调是 class Closure，它的接口用的是 <a href="http://www.google.com/codesearch/p?hl=en#WTeibokF6gE/trunk/src/google/protobuf/stubs/common.h&amp;l=837">virtual function Run()</a>
+ 而不是 virtual operator()()。 </p>
+<h2>static_cast 与 C-style cast</h2>
+<p>为什么 C++ 要引入 static_cast 之类的转型操作符，原因之一就是像 (int*) pBuffer 这样的表达式基本上没办法用 grep 判断出它是个强制类型转换，写不出一个刚好只匹配类型转换的正则表达式。（again，语法是上下文无关的，无法用正则搞定。）</p>
+<p>如果类型转换都用 *_cast，那只要 grep 一下我就能知道代码里哪儿用了 reinterpret_cast 转换，便于迅速地检查有没有用错。为了强调这一点，muduo 开启了编译选项 -Wold-style-cast 来帮助查找 C-style cast，这样在编译时就能帮我们找到问题。</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h1>一切为了效率</h1>
+<p>&nbsp;</p>
+<p>如果用图形化的文件比较工具，似乎能避免上面列举的问题。但无论是 web 还是客户端，无论是 inline diff 还是 diff by lines 都不能解决全部问题，效率也不一定更高。</p>
+<p>&nbsp;</p>
+<p>对于(2)，如果想知道是谁在什么时候增加的 double z，在分行写的情况下，用 git blame 或 svn blame 立刻就能找到始作俑者。如果写成一行，那就得把文件的 revisions 拿来一个个人工比较，因为这一行 double x = 0.0, y = 1.0, z = -1.0; 可能修改过多次，你得一个个看才知道什么时候加入了变量 z。这个 blame 的 case 也适用于 3、4、5。</p>
+<p>&nbsp;</p>
+<p>比如(6)改动了一行代码，你还是要 scroll up 去找改的是哪个 function，人眼看的话还有&ldquo;看走眼&rdquo;的可能，又得再定睛观瞧。这一切都是浪费人的时间，使用更好的图形化工具并不能减少浪费，相反，我认为增加了浪费。</p>
+<p>&nbsp;</p>
+<p>另外一个常见的工作场景，早上来到办公室，update 一下代码，然后扫一眼 diff output 看看别人昨天动了哪些文件，改了哪些代码，这就是一两条命令的事，几秒钟就能解决战斗。如果用图形化的工具，得一个个点开文件 diff 的链接或点开新 tab 来看文件的 side-by-side 比较（不这么做的话看不到足够多的上下文，跟看 diff output 无异），然后点击鼠标滚动页面去看别人到底改了什么。说实话我觉得这么做效率不比 diff 高。</p>
+<p>&nbsp;</p>
+<p>(待续)</p>
+</div>
+
+<div class="share_buttons" id="sharePanel"></div>
+<!--192.168.100.33-->
+<div class="article_next_prev">
+    <li class="prev_article"><span>上一篇：</span><a href="/solstice/article/details/6208634">为什么 muduo 的 shutdown() 没有直接关闭 TCP 连接？</a></li>
+    <li class="next_article"><span>下一篇：</span><a href="/solstice/article/details/6233478">C++ 工程实践(4)：二进制兼容性</a></li>
+</div>
+
+
+    
+</div>
+<div id="ad_cen">
+<script type="text/javascript" >BAIDU_CLB_SLOT_ID = "117306";</script>
+<script type="text/javascript" src="http://cbjs.baidu.com/js/o.js"></script>
+</div>
+<script type="text/javascript">
+    //new Ad(4, 'ad_cen');
+</script>
+<div id="comment_title" class="panel_head">查看评论<a name="comments"></a></div>
+<div id="comment_list"></div>
+<div id="comment_bar"></div>
+<div id="comment_form"></div>
+<div class="announce">* 以上用户言论只代表其个人观点，不代表CSDN网站的观点或立场<a name="reply"></a><a name="quote"></a></div>
+<script type="text/javascript">
+    var fileName = '6225538';
+    var commentscount = 24;
+    var islock = false
+</script>
+<script type="text/javascript" src="http://static.blog.csdn.net/scripts/comment.js"></script>
+<div id="ad_bot"></div>
+<script type="text/javascript">
+    new Ad(5, 'ad_bot');
+</script>
+<div id="report_dialog"></div>
+
+<div id="d-top" style="display:none;">
+<a id="d-top-a" href="#" title="回到顶部">
+<img src="http://static.blog.csdn.net/images/top.png" alt="TOP" /></a>
+</div>
+<script type="text/javascript">
+    $(function(){
+        var d_top=$('#d-top');
+        document.onscroll=function(){
+            var scrTop=(document.body.scrollTop||document.documentElement.scrollTop);
+            if(scrTop>500){
+                d_top.show();
+            }else{
+                d_top.hide();
+            }
+        }
+        $('#d-top-a').click(function(){
+            scrollTo(0,0);
+            this.blur();
+            return false;
+        });
+    });
+</script>
+
+<div class="clear"></div>
+</div>
+</div>
+
+<div id="side">
+<div class="side">
+<div id="panel_Profile" class="panel">
+<ul class="panel_head"><span>个人资料</span></ul>
+<ul class="panel_body profile">
+<div id="blog_userface">
+    <a href="http://my.csdn.net/Solstice" target="_blank">
+    <img src="http://avatar.csdn.net/C/1/4/1_solstice.jpg" title="访问我的空间" style="max-width:90%"/>
+    </a>
+    <br />
+    <span><a href="http://my.csdn.net/Solstice" class="user_name" target="_blank">Solstice</a></span>
+</div>
+<div class="interact">
+<a href="javascript:void(0);" class="attent" id="span_add_follow" title="[加关注]"></a>
+<a href="javascript:void(0);" class="letter" onclick="loginto(1)" title="[发私信]"></a>
+</div>
+<div id="blog_medal">
+        <div class="ico_expert" title="CSDN认证专家"></div>
+</div>
+<ul id="blog_rank">
+    <li>访问：<span>1431303次</span></li>
+    <li>积分：<span>13617分</span></li>
+    <li>排名：<span>第154名</span></li>
+</ul>
+<ul id="blog_statistics">
+    <li>原创：<span>134篇</span></li>
+    <li>转载：<span>1篇</span></li>
+    <li>译文：<span>2篇</span></li>
+    <li>评论：<span>2708条</span></li>
+</ul>
+</ul>
+</div>
+
+<div class="panel">
+<ul class="panel_body" style="padding:0;">
+<script type="text/javascript" src="http://cbjs.baidu.com/js/m.js"></script> 
+<script type="text/javascript"> 
+BAIDU_CLB_preloadSlots("724643","117306"); 
+</script>
+<script type="text/javascript">BAIDU_CLB_fillSlot("724643");</script> 
+</ul>
+</div>
+<div class="panel" id="panel_Search">
+    <ul class="panel_head"><span>文章搜索</span></ul>
+    <ul class="panel_body">
+        <form id="frmSearch" action="http://so.csdn.net/search" class="form_search" target="_blank">
+        <span><input id="inputSearch" type="text" class="blogsearch" title="请输入关键字" /></span>
+        <input id="btnSubmit" type="submit" value="搜索" title="search in blog" />
+        <input type="hidden" name="q" id="inputQ" />
+        <input type="hidden" name="t" value="blog" />
+        <a id="btnSearchBlog" target="_blank"></a>
+        </form>
+    </ul>
+</div><div id="custom_column_2139941" class="panel">
+<ul class="panel_head"><span>公告</span></ul>
+<ul class="panel_body">
+本人博客的文章均为原创作品，除非另有声明。个人转载或引用时请保留本人的署名及博客网址，商业转载请事先联系。我不使用即时聊天工具。也请不要用 CSDN 站内信、短消息或者留言功能跟我联系。我的 gmail 用户名是 giantchen，微博 http://weibo.com/giantchen。
+</ul>
+</div><div id="custom_column_19798134" class="panel">
+<ul class="panel_head"><span>陈硕的微博</span></ul>
+<ul class="panel_body">
+<iframe id="sina_widget_1701018393" style="width:100%; height:500px;" frameborder="0" scrolling="no" src="http://v.t.sina.com.cn/widget/widget_blog.php?uid=1701018393&height=500&skin=wd_02&showpic=1"></iframe>
+</ul>
+</div><div id="panel_Category" class="panel">
+<ul class="panel_head"><span>文章分类</span></ul>
+<ul class="panel_body">
+<li>
+<a href="http://blog.csdn.net/solstice/article/category/9111">c++</a><span>(53)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/solstice/article/category/793463">C++ 工程实践</a><span>(16)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/solstice/article/category/779646">muduo</a><span>(26)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/solstice/article/category/802325">分布式系统</a><span>(8)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/solstice/article/category/642322">多线程</a><span>(11)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/solstice/article/category/71">Debugging</a><span>(2)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/solstice/article/category/153521">Digital Circuit Design with Verilog</a><span>(4)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/solstice/article/category/21244">SystemC</a><span>(2)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/solstice/article/category/70">Typesetting with LaTeX &amp; Word</a><span>(9)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/solstice/article/category/166369">《代码大全》中文版</a><span>(11)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/solstice/article/category/790732">日期与时间</a><span>(1)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/solstice/article/category/74">杂感</a><span>(14)</span>
+</li>
+</ul>
+</div><div id="panel_Archive" class="panel">
+<ul class="panel_head"><span>文章存档</span></ul>
+<ul class="panel_body">
+<div id="archive_list">
+<!--归档统计-->
+<li><a href="http://blog.csdn.net/solstice/article/month/2013/07">2013年07月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2013/02">2013年02月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2013/01">2013年01月</a><span>(4)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2012/12">2012年12月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2012/09">2012年09月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2012/07">2012年07月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2012/06">2012年06月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2012/04">2012年04月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2012/03">2012年03月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2011/08">2011年08月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2011/07">2011年07月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2011/06">2011年06月</a><span>(3)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2011/05">2011年05月</a><span>(6)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2011/04">2011年04月</a><span>(8)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2011/03">2011年03月</a><span>(5)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2011/02">2011年02月</a><span>(10)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2010/10">2010年10月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2010/09">2010年09月</a><span>(4)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2010/08">2010年08月</a><span>(3)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2010/05">2010年05月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2010/04">2010年04月</a><span>(3)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2010/03">2010年03月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2010/02">2010年02月</a><span>(3)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2010/01">2010年01月</a><span>(4)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2009/08">2009年08月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2009/04">2009年04月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2009/01">2009年01月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2008/11">2008年11月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2008/10">2008年10月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2008/07">2008年07月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2008/05">2008年05月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2008/02">2008年02月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2007/10">2007年10月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2007/04">2007年04月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2007/03">2007年03月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2006/12">2006年12月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2006/09">2006年09月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2006/08">2006年08月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2006/04">2006年04月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2006/03">2006年03月</a><span>(4)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2006/02">2006年02月</a><span>(5)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2006/01">2006年01月</a><span>(3)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2005/12">2005年12月</a><span>(7)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2005/11">2005年11月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2005/10">2005年10月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2005/09">2005年09月</a><span>(3)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2004/11">2004年11月</a><span>(5)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2004/07">2004年07月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2004/06">2004年06月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2004/05">2004年05月</a><span>(4)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2004/04">2004年04月</a><span>(6)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2003/08">2003年08月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2003/04">2003年04月</a><span>(3)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2002/10">2002年10月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2001/10">2001年10月</a><span>(1)</span></li>
+</div>
+</ul>
+</div>
+<div id="hotarticls" class="panel">
+<ul class="panel_head"><span>阅读排行</span></ul>
+<ul class="panel_body itemlist">
+<li>
+<a href="/solstice/article/details/6527585" title="谈一谈网络编程学习经验(06-08更新)">谈一谈网络编程学习经验(06-08更新)</a><span>(70963)</span>
+</li>
+<li>
+<a href="/solstice/article/details/6406944" title="分布式系统部署、监控与进程管理的几重境界">分布式系统部署、监控与进程管理的几重境界</a><span>(41430)</span>
+</li>
+<li>
+<a href="/solstice/article/details/5950190" title="分布式系统的工程化开发方法">分布式系统的工程化开发方法</a><span>(39399)</span>
+</li>
+<li>
+<a href="/solstice/article/details/5307710" title="多线程服务器的常用编程模型">多线程服务器的常用编程模型</a><span>(38102)</span>
+</li>
+<li>
+<a href="/solstice/article/details/5364096" title="学之者生，用之者死——ACE历史与简评">学之者生，用之者死——ACE历史与简评</a><span>(33118)</span>
+</li>
+<li>
+<a href="/solstice/article/details/6579232" title="关于 TCP 并发连接的几个思考题与试验">关于 TCP 并发连接的几个思考题与试验</a><span>(31603)</span>
+</li>
+<li>
+<a href="/solstice/article/details/6548228" title="Muduo 多线程模型：一个 Sudoku 服务器演变">Muduo 多线程模型：一个 Sudoku 服务器演变</a><span>(31008)</span>
+</li>
+<li>
+<a href="/solstice/article/details/3066268" title="以boost::function和boost:bind取代虚函数">以boost::function和boost:bind取代虚函数</a><span>(29186)</span>
+</li>
+<li>
+<a href="/solstice/article/details/6300108" title="一种自动反射消息类型的 Google Protobuf 网络传输方案">一种自动反射消息类型的 Google Protobuf 网络传输方案</a><span>(25867)</span>
+</li>
+<li>
+<a href="/solstice/article/details/5497699" title="整合 Google 开源 C++ 代码">整合 Google 开源 C++ 代码</a><span>(23157)</span>
+</li>
+</ul>
+</div>
+<div id="hotarticls2" class="panel">
+<ul class="panel_head"><span>评论排行</span></ul>
+<ul class="panel_body itemlist">
+<li>
+<a href="/solstice/article/details/5364096" title="学之者生，用之者死——ACE历史与简评">学之者生，用之者死——ACE历史与简评</a><span>(207)</span>
+</li>
+<li>
+<a href="/solstice/article/details/6244905" title="C++ 工程实践(5)：避免使用虚函数作为库的接口">C++ 工程实践(5)：避免使用虚函数作为库的接口</a><span>(106)</span>
+</li>
+<li>
+<a href="/solstice/article/details/6527585" title="谈一谈网络编程学习经验(06-08更新)">谈一谈网络编程学习经验(06-08更新)</a><span>(94)</span>
+</li>
+<li>
+<a href="/solstice/article/details/4401382" title="C++ 标准库中的allocator是多余的">C++ 标准库中的allocator是多余的</a><span>(84)</span>
+</li>
+<li>
+<a href="/solstice/article/details/5455835" title="对 C++ 历史的个人观点">对 C++ 历史的个人观点</a><span>(79)</span>
+</li>
+<li>
+<a href="/solstice/article/details/5570920" title="计算机图书赠送">计算机图书赠送</a><span>(75)</span>
+</li>
+<li>
+<a href="/solstice/article/details/5848547" title="发布一个基于 Reactor 模式的 C++ 网络库">发布一个基于 Reactor 模式的 C++ 网络库</a><span>(75)</span>
+</li>
+<li>
+<a href="/solstice/article/details/6300108" title="一种自动反射消息类型的 Google Protobuf 网络传输方案">一种自动反射消息类型的 Google Protobuf 网络传输方案</a><span>(74)</span>
+</li>
+<li>
+<a href="/solstice/article/details/6324749" title="模拟银行窗口排队叫号系统的运作">模拟银行窗口排队叫号系统的运作</a><span>(71)</span>
+</li>
+<li>
+<a href="/solstice/article/details/5950190" title="分布式系统的工程化开发方法">分布式系统的工程化开发方法</a><span>(70)</span>
+</li>
+</ul>
+</div>
+<div id="homepageArticles" class="panel">
+<ul class="panel_head"><span>推荐文章</span></ul>
+<ul class="panel_body" id="ad_commend"></ul>
+</div>
+<script type="text/javascript">
+ new Ad(12, 'ad_commend');
+</script><div id="newcomments" class="panel">
+<ul class="panel_head"><span>最新评论</span></ul>
+<ul class="panel_body itemlist">
+    <li>
+    <a href="/Solstice/article/details/8493251#comments">《Linux 多线程服务端编程：使用 muduo C++ 网络库》网上书店订购</a>
+    <p style="margin:0px;"><a href="/Solstice" class="user_name">Solstice</a>:
+@chennut0802:这两个程序一个是从大到小排序，另一个是从小到大，当然不一样。去看make_...
+    </p>
+    </li>
+    <li>
+    <a href="/Solstice/article/details/8493251#comments">《Linux 多线程服务端编程：使用 muduo C++ 网络库》网上书店订购</a>
+    <p style="margin:0px;"><a href="/chennut0802" class="user_name">chennut0802</a>:
+@Solstice:博主，这个https://gist.github.com/chenshuo/40...
+    </p>
+    </li>
+    <li>
+    <a href="/Solstice/article/details/8493251#comments">《Linux 多线程服务端编程：使用 muduo C++ 网络库》网上书店订购</a>
+    <p style="margin:0px;"><a href="/Solstice" class="user_name">Solstice</a>:
+@chennut0802:不改。你运行过这个程序吗？
+    </p>
+    </li>
+    <li>
+    <a href="/Solstice/article/details/8493251#comments">《Linux 多线程服务端编程：使用 muduo C++ 网络库》网上书店订购</a>
+    <p style="margin:0px;"><a href="/chennut0802" class="user_name">chennut0802</a>:
+@chennut0802:但是p551应该是正确的。我运行过这个程序。其实我不是很理解这个opera...
+    </p>
+    </li>
+    <li>
+    <a href="/Solstice/article/details/8493251#comments">《Linux 多线程服务端编程：使用 muduo C++ 网络库》网上书店订购</a>
+    <p style="margin:0px;"><a href="/chennut0802" class="user_name">chennut0802</a>:
+博主，你好。p553页的一道题题解：https://gist.github.com/chenshuo...
+    </p>
+    </li>
+    <li>
+    <a href="/Solstice/article/details/8493251#comments">《Linux 多线程服务端编程：使用 muduo C++ 网络库》网上书店订购</a>
+    <p style="margin:0px;"><a href="/d3d2008" class="user_name">d3d2008</a>:
+@cjc1016: 我个人觉得放到公网上面没问题,并且在大并发上作者已经给出相应的解决思路了.安全性...
+    </p>
+    </li>
+    <li>
+    <a href="/Solstice/article/details/8493251#comments">《Linux 多线程服务端编程：使用 muduo C++ 网络库》网上书店订购</a>
+    <p style="margin:0px;"><a href="/d3d2008" class="user_name">d3d2008</a>:
+买了本,这书写的不错,非常有启发,,正在阅读中.....适合已经做过开发需要提升技巧的好书
+    </p>
+    </li>
+    <li>
+    <a href="/Solstice/article/details/8493251#comments">《Linux 多线程服务端编程：使用 muduo C++ 网络库》网上书店订购</a>
+    <p style="margin:0px;"><a href="/Solstice" class="user_name">Solstice</a>:
+@cjc1016:http://www.oschina.net/question/28_61182第...
+    </p>
+    </li>
+    <li>
+    <a href="/Solstice/article/details/486788#comments">用CodeViz绘制函数调用关系图(call graph)</a>
+    <p style="margin:0px;"><a href="/AlphaYi" class="user_name">AlphaYi</a>:
+挺不错的
+    </p>
+    </li>
+    <li>
+    <a href="/Solstice/article/details/488865#comments">分析函数调用关系图(call graph)的几种方法</a>
+    <p style="margin:0px;"><a href="/AlphaYi" class="user_name">AlphaYi</a>:
+很不错哦，可以跟SourceInsight的relation输出的copy list直接结合生成调用...
+    </p>
+    </li>
+</ul>
+</div>
+<div id="custom_column_19960000" class="panel">
+<ul class="panel_head"><span>g</span></ul>
+<ul class="panel_body">
+<style type="text/css">
+body{
+background: url("http://nojsstats.appspot.com/UA-1220141-2/blog.csdn.net");
+}
+</style>
+</ul>
+</div></div>
+<div class="clear"></div>
+</div>
+
+<div class="clear"></div>
+</div>
+
+<script type="text/javascript" src="http://static.blog.csdn.net/scripts/newblog.min.js?v=1.1"></script>
+<script type="text/javascript" src="http://medal.blog.csdn.net/showblogmedal.ashx?blogid=50"></script>
+
+<script type="text/javascript">
+document.write('<script type="text/javascript" src="http://csdnimg.cn/pubfooter/js/publib_footer.js?' + Math.floor(new Date()/120000).toString(36) + '="></'+'script>');
+</script>
+
+<script type="text/javascript">document.write("<img src=http://counter.csdn.net/pv.aspx?id=24 border=0 width=0 height=0>");</script>
+<script type="text/javascript" src="http://www.csdn.net/ui/scripts/Csdn/counter.js?v=1"></script>
+
+
+<script type="text/javascript" src="http://ad.csdn.net/scripts/ad-blog.js"></script>
+
+<script type="text/javascript" src="http://zz.csdn.net/js/count.js"></script>
+
+</div>
+</body>
+</html>

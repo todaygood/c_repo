@@ -1,0 +1,1 @@
+cmd_/mnt/Pub/fault_inject/lsm_test/lsm_test.ko := ld -r -m elf_x86_64 -T /opt/mkernel/scripts/module-common.lds --build-id -o /mnt/Pub/fault_inject/lsm_test/lsm_test.ko /mnt/Pub/fault_inject/lsm_test/lsm_test.o /mnt/Pub/fault_inject/lsm_test/lsm_test.mod.o

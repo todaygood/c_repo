@@ -1,0 +1,1 @@
+cmd_/mnt/Pub/code_respo/trace_sock_tx/trace_sock_tx.ko := ld -m elf_x86_64 -r -o /mnt/Pub/code_respo/trace_sock_tx/trace_sock_tx.ko /mnt/Pub/code_respo/trace_sock_tx/trace_sock_tx.o /mnt/Pub/code_respo/trace_sock_tx/trace_sock_tx.mod.o

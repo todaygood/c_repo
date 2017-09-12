@@ -1,0 +1,99 @@
+
+sles11sp1:/opt # diff -Nur before.inet_bind.asm  after.inet_bind.asm 
+--- before.inet_bind.asm	2014-02-21 08:50:05.000000000 +0800
++++ after.inet_bind.asm	2014-02-21 08:49:41.000000000 +0800
+@@ -1,4 +1,5 @@
+-0xffffffff81353710 <inet_bind>:	sub    $0x28,%rsp
++0xffffffff81353710 <inet_bind>:	int3   
++0xffffffff81353711 <inet_bind+1>:	sub    $0x28,%esp
+ 0xffffffff81353714 <inet_bind+4>:	mov    %rbx,(%rsp)
+ 0xffffffff81353718 <inet_bind+8>:	mov    %rbp,0x8(%rsp)
+ 0xffffffff8135371d <inet_bind+13>:	mov    %rsi,%rbx
+
+
+sles11sp1:/opt # cat before.inet_bind.asm 
+0xffffffff81353710 <inet_bind>:	sub    $0x28,%rsp
+0xffffffff81353714 <inet_bind+4>:	mov    %rbx,(%rsp)
+0xffffffff81353718 <inet_bind+8>:	mov    %rbp,0x8(%rsp)
+0xffffffff8135371d <inet_bind+13>:	mov    %rsi,%rbx
+0xffffffff81353720 <inet_bind+16>:	mov    %r12,0x10(%rsp)
+0xffffffff81353725 <inet_bind+21>:	mov    %r13,0x18(%rsp)
+0xffffffff8135372a <inet_bind+26>:	mov    %r14,0x20(%rsp)
+0xffffffff8135372f <inet_bind+31>:	mov    0x38(%rdi),%rbp
+0xffffffff81353733 <inet_bind+35>:	mov    0x30(%rbp),%rax
+0xffffffff81353737 <inet_bind+39>:	mov    0x78(%rax),%rax
+0xffffffff8135373b <inet_bind+43>:	test   %rax,%rax
+0xffffffff8135373e <inet_bind+46>:	je     0xffffffff81353768 <inet_bind+88>
+0xffffffff81353740 <inet_bind+48>:	mov    %rbp,%rdi
+0xffffffff81353743 <inet_bind+51>:	mov    (%rsp),%rbx
+0xffffffff81353747 <inet_bind+55>:	mov    0x8(%rsp),%rbp
+0xffffffff8135374c <inet_bind+60>:	mov    0x10(%rsp),%r12
+0xffffffff81353751 <inet_bind+65>:	mov    0x18(%rsp),%r13
+0xffffffff81353756 <inet_bind+70>:	mov    %rax,%r11
+0xffffffff81353759 <inet_bind+73>:	mov    0x20(%rsp),%r14
+0xffffffff8135375e <inet_bind+78>:	add    $0x28,%rsp
+0xffffffff81353762 <inet_bind+82>:	jmpq   *%r11
+0xffffffff81353765 <inet_bind+85>:	nopl   (%rax)
+0xffffffff81353768 <inet_bind+88>:	cmp    $0xf,%edx
+0xffffffff8135376b <inet_bind+91>:	mov    $0xffffffea,%r12d
+0xffffffff81353771 <inet_bind+97>:	jbe    0xffffffff813537c8 <inet_bind+184>
+0xffffffff81353773 <inet_bind+99>:	movzwl (%rsi),%eax
+0xffffffff81353776 <inet_bind+102>:	cmp    $0x2,%ax
+0xffffffff8135377a <inet_bind+106>:	jne    0xffffffff81353880 <inet_bind+368>
+0xffffffff81353780 <inet_bind+112>:	mov    0x4(%rsi),%esi
+0xffffffff81353783 <inet_bind+115>:	mov    0x38(%rbp),%rdi
+0xffffffff81353787 <inet_bind+119>:	callq  0xffffffff81359b60 <inet_addr_type>
+0xffffffff8135378c <inet_bind+124>:	mov    0x5d8f81(%rip),%r8d        # 0xffffffff8192c714
+0xffffffff81353793 <inet_bind+131>:	mov    %eax,%r14d
+0xffffffff81353796 <inet_bind+134>:	test   %r8d,%r8d
+
+
+
+case_print_register_skills.txt
+struct pt_regs {
+    unsigned long bx;
+    unsigned long cx;
+    unsigned long dx;
+    unsigned long si;
+    unsigned long di;
+    unsigned long bp;
+    unsigned long ax;
+    unsigned long ds;
+    unsigned long es;
+    unsigned long fs;
+    unsigned long gs;
+    unsigned long orig_ax;
+    unsigned long ip;
+    unsigned long cs;
+    unsigned long flags;
+    unsigned long sp;
+    unsigned long ss;
+};
+
+
+printk("tcp_v4_hnd_req returned 0x%016lx,rbp:0x%016lx\n", retval,regs->bp); 
+Feb 21 09:13:33 sles11sp1 kernel: [ 6567.393323] tcp_v4_hnd_req returned 0xffff88003d178ec0,rbp:0xffff88003d1781c0
+
+printk("tcp_v4_hnd_req returned 0x%x,rbp:0x%016lx\n", retval,regs->bp); 
+Feb 21 09:13:33 sles11sp1 kernel: [ 6567.393323] tcp_v4_hnd_req returned 0x3d178ec0
+
+这说明
+
+一个64bit 的数字， 用%x 打印，只打印低32位
+
+                                   用%lx 打印 ，才能打印64位。
+                                   
+                                               
+            
+            
+
+
+
+
+
+
+
+
+
+
+

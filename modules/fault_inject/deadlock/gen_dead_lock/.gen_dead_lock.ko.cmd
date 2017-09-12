@@ -1,0 +1,1 @@
+cmd_/mnt/Pub/fault_inject/deadlock/gen_dead_lock/gen_dead_lock.ko := ld -r -m elf_x86_64 -T /usr/src/linux-2.6.32.12-0.7/scripts/module-common.lds --build-id -o /mnt/Pub/fault_inject/deadlock/gen_dead_lock/gen_dead_lock.ko /mnt/Pub/fault_inject/deadlock/gen_dead_lock/gen_dead_lock.o /mnt/Pub/fault_inject/deadlock/gen_dead_lock/gen_dead_lock.mod.o

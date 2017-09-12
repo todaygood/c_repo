@@ -1,0 +1,25 @@
+
+内核故障注入-crasher模块
+
+sles10, sles11 都有。
+
+
+pv-sp2:~ # modinfo crasher
+filename:       /lib/modules/3.0.13-0.27-xen/kernel/drivers/char/crasher.ko
+license:        GPL
+srcversion:     9A2571B1E627C6DC03A2A66
+depends:        
+supported:      yes
+vermagic:       3.0.13-0.27-xen SMP mod_unload modversions Xen 
+parm:           seed:random seed for memory tests (ulong)
+parm:           call_panic:test option. call panic() and render the system unusable. (bool)
+parm:           call_bug:test option. call BUG() and render the system unusable. (bool)
+parm:           call_warn:test option. call WARN() and leave the system usable. (bool)
+parm:           trap_null:test option. dereference a NULL pointer to simulate a crash and render the system unusable. (bool)
+parm:           trap_read:test option. read from an invalid address to simulate a crash and render the system unusable. (long)
+parm:           trap_write:test option. write to an invalid address to simulate a crash and render the system unusable. (long)
+parm:           call_null:test option. call a NULL pointer to simulate a crash and render the system unusable. (bool)
+parm:           call_bad:test option. call an invalid address to simulate a crash and render the system unusable. (long)
+parm:           jump_null:test option. jump to a NULL pointer to simulate a crash and render the system unusable. (bool)
+parm:           jump_bad:test option. jump to an invalid address to simulate a crash and render the system unusable. (long)
+parm:           threads:number of threads to run (int)

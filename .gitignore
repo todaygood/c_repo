@@ -1,0 +1,6 @@
+getchar
+gettid
+malloc_addr
+memleak_example
+memleak_example32
+multiply

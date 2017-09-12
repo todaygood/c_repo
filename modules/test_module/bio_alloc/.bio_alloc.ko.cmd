@@ -1,0 +1,1 @@
+cmd_/Code/test_module/bio_alloc/bio_alloc.ko := ld -r -m elf_x86_64 -T /usr/src/linux-3.12.26-17.g7212dc4/scripts/module-common.lds --build-id  -o /Code/test_module/bio_alloc/bio_alloc.ko /Code/test_module/bio_alloc/bio_alloc.o /Code/test_module/bio_alloc/bio_alloc.mod.o

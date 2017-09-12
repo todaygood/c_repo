@@ -1,0 +1,52 @@
+			
+		
+故障注入注意不要在虚拟机中测试，虚拟机中的表现跟物理机极其不一致。	
+	
+序号		用例               物理服务器
+		
+1		panic调用	      	达到预期
+2		自旋锁死锁	  	达到预期：内核hang		
+3		内核栈溢出	    没有达到预期，系统仍然正常。
+	 
+	空指针	"达到预期,串口打印：
+[  367.966027] BUG: unable to handle kernel NULL pointer dereference at (null)
+[  367.966044] IP: [<ffffffffa06e5100>] mf_ioctl+0x90/0xa4 [make_fault]
+[  367.966056] PGD 1decc9067 PUD 1da63f067 PMD 0
+[  367.966063] Oops: 0002 [#1] SMP
+[  367.966068] last sysfs file: /sys/devices/pci0000:00/0000:00:1e.0/0000:08:03.0/local_cpus
+[  367.966074] CPU 2
+[  367.966077] Modules linked in: make_fault(PN) nls_utf8 cifs(X) nfsd lockd nfs_acl auth_rpcgss sunrpc exportfs usbbk gntdev netbk blkbk blkback_pagemap blktap xenbus_be ipv6 iscsi_tcp libiscsi_tcp libiscsi scsi_transport_iscsi af_packet bridge stp llc microcode fuse loop dm_mod dcdbas(X) qla2xxx 8250_pnp tpm_tis tpm 8250 tpm_bios domctl rtc_cmos iTCO_wdt scsi_transport_fc pcspkr serio_raw iTCO_vendor_support sg serial_core rtc_core power_meter scsi_tgt button rtc_lib mptctl bnx2 usbhid hid uhci_hcd ehci_hcd usbcore sd_mod crc_t10dif xenblk cdrom xennet edd ext3 mbcache jbd fan processor ide_pci_generic ide_core ata_generic ata_piix libata mptsas mptscsih mptbase scsi_transport_sas scsi_mod thermal thermal_sys hwmon
+[  367.966172] Supported: Yes, External
+[  367.966177] Pid: 7279, comm: gen_fault Tainted: P           X 2.6.32.12-0.7-xen #1 PowerEdge R710
+[  367.966183] RIP: e030:[<ffffffffa06e5100>]  [<ffffffffa06e5100>] mf_ioctl+0x90/0xa4 [make_fault]
+[  367.966192] RSP: e02b:ffff8801d4825ed8  EFLAGS: 00010297
+[  367.966196] RAX: 0000000000000000 RBX: ffff8801dd672200 RCX: 0000000000000000
+[  367.966226] RDX: 000000000000f500 RSI: ffff8801dd672200 RDI: ffff8801e5c30720
+[  367.966231] RBP: 0000000000000000 R08: ffffffffa06e5200 R09: 0000000000000000
+[  367.966236] R10: 0000000000000000 R11: ffffffff80161bc0 R12: 000000000000f500
+[  367.966241] R13: 0000000000000003 R14: 000000000000f500 R15: 0000000000000000
+[  367.966251] FS:  00007f6a4edc6700(0000) GS:ffff88000202e000(0000) knlGS:0000000000000000
+[  367.966257] CS:  e033 DS: 0000 ES: 0000 CR0: 0000000080050033
+[  367.966261] CR2: 0000000000000000 CR3: 00000001e44a3000 CR4: 0000000000002660
+[  367.966267] DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
+[  367.966272] DR3: 0000000000000000 DR6: 00000000ffff0ff0 DR7: 0000000000000400
+[  367.966278] Process gen_fault (pid: 7279, threadinfo ffff8801d4824000, task ffff8801dd6863c0)
+[  367.966282] Stack:
+[  367.966284]  0000000000000003 ffffffff800ea155 ffff8801dd672200 0000000000000000
+[  367.966291] <0> 0000000000000000 ffffffff800ea57b ffff8801e5787b60 ffffffff8035521b
+[  367.966298] <0> ffff8801dd6863c0 0000000000000000 ffff8801dd672200 0000000000000000
+[  367.966306] Call Trace:
+[  367.966331]  [<ffffffff800ea155>] vfs_ioctl+0x85/0xb0
+[  367.966341]  [<ffffffff800ea57b>] do_vfs_ioctl+0x35b/0x420
+[  367.966351]  [<ffffffff800ea6e1>] sys_ioctl+0xa1/0xb0
+[  367.966362]  [<ffffffff80007458>] system_call_fastpath+0x16/0x1b
+[  367.966373]  [<00007f6a4e94abd7>] 0x7f6a4e94abd7
+[  367.966378] Code: 00 00 00 00 00 e8 f1 d3 c6 df 48 c7 c7 f8 55 6e a0 e8 e5 d3 c6 df eb a0 0f 1f 00 48 c7 c7 65 51 6e a0 31 c0 e8 62 9f c6 df 66 90 <c7> 04 25 00 00 00 00 00 00 00 00 eb 80 0f 1f 00 eb fe 00 00 04
+[  367.966429] RIP  [<ffffffffa06e5100>] mf_ioctl+0x90/0xa4 [make_fault]
+[  367.966437]  RSP <ffff8801d4825ed8>
+[  367.966441] CR2: 0000000000000000
+"
+
+		
+	
+

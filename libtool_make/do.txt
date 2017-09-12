@@ -1,0 +1,107 @@
+junwork:~/Desktop/libtool_make # libtool --mode=compile gcc -c compress.c 
+libtool: compile:  gcc -c compress.c  -fPIC -DPIC -o .libs/compress.o
+libtool: compile:  gcc -c compress.c -o compress.o >/dev/null 2>&1
+
+
+
+junwork:~/Desktop/libtool_make # libtool --mode=link gcc -o libcompress.la compress.lo -rpath /tmp -lz 
+libtool: link: gcc -shared  -fPIC -DPIC  .libs/compress.o   -lz    -Wl,-soname -Wl,libcompress.so.0 -o .libs/libcompress.so.0.0.0
+libtool: link: (cd ".libs" && rm -f "libcompress.so.0" && ln -s "libcompress.so.0.0.0" "libcompress.so.0")
+libtool: link: (cd ".libs" && rm -f "libcompress.so" && ln -s "libcompress.so.0.0.0" "libcompress.so")
+libtool: link: ar cru .libs/libcompress.a  compress.o
+libtool: link: ranlib .libs/libcompress.a
+libtool: link: ( cd ".libs" && rm -f "libcompress.la" && ln -s "../libcompress.la" "libcompress.la" )
+
+
+junwork:~/Desktop/libtool_make # libtool --mode=install install -c libcompress.la  /tmp 
+libtool: install: install -c .libs/libcompress.so.0.0.0 /tmp/libcompress.so.0.0.0
+libtool: install: (cd /tmp && { ln -s -f libcompress.so.0.0.0 libcompress.so.0 || { rm -f libcompress.so.0 && ln -s libcompress.so.0.0.0 libcompress.so.0; }; })
+libtool: install: (cd /tmp && { ln -s -f libcompress.so.0.0.0 libcompress.so || { rm -f libcompress.so && ln -s libcompress.so.0.0.0 libcompress.so; }; })
+libtool: install: install -c .libs/libcompress.lai /tmp/libcompress.la
+libtool: install: install -c .libs/libcompress.a /tmp/libcompress.a
+libtool: install: chmod 644 /tmp/libcompress.a
+libtool: install: ranlib /tmp/libcompress.a
+libtool: finish: PATH="/sbin:/usr/sbin:/usr/local/sbin:/root/bin:/usr/local/bin:/usr/bin:/bin:/usr/bin/X11:/usr/X11R6/bin:/usr/games:/usr/lib/mit/bin:/usr/lib/mit/sbin:/sbin" ldconfig -n /tmp
+----------------------------------------------------------------------
+Libraries have been installed in:
+   /tmp
+
+If you ever happen to want to link against installed libraries
+in a given directory, LIBDIR, you must either use libtool, and
+specify the full pathname of the library, or use the `-LLIBDIR'
+flag during linking and do at least one of the following:
+   - add LIBDIR to the `LD_LIBRARY_PATH' environment variable
+     during execution
+   - add LIBDIR to the `LD_RUN_PATH' environment variable
+     during linking
+   - use the `-Wl,-rpath -Wl,LIBDIR' linker flag
+   - have your system administrator add LIBDIR to `/etc/ld.so.conf'
+
+See any operating system documentation about shared libraries for
+more information, such as the ld(1) and ld.so(8) manual pages.
+------------------------------------------------------------------
+
+
+
+
+
+junwork:/tmp # libtool -n --mode=finish /tmp 
+libtool: finish: PATH="/sbin:/usr/sbin:/usr/local/sbin:/root/bin:/usr/local/bin:/usr/bin:/bin:/usr/bin/X11:/usr/X11R6/bin:/usr/games:/usr/lib/mit/bin:/usr/lib/mit/sbin:/sbin" ldconfig -n /tmp
+----------------------------------------------------------------------
+Libraries have been installed in:
+   /tmp
+
+If you ever happen to want to link against installed libraries
+in a given directory, LIBDIR, you must either use libtool, and
+specify the full pathname of the library, or use the `-LLIBDIR'
+flag during linking and do at least one of the following:
+   - add LIBDIR to the `LD_LIBRARY_PATH' environment variable
+     during execution
+   - add LIBDIR to the `LD_RUN_PATH' environment variable
+     during linking
+   - use the `-Wl,-rpath -Wl,LIBDIR' linker flag
+   - have your system administrator add LIBDIR to `/etc/ld.so.conf'
+
+See any operating system documentation about shared libraries for
+more information, such as the ld(1) and ld.so(8) manual pages.
+----------------------------------------------------------------------
+
+
+junwork:~/Desktop/libtool_make # libtool --mode=compile gcc -c main.c 
+libtool: compile:  gcc -c main.c  -fPIC -DPIC -o .libs/main.o
+libtool: compile:  gcc -c main.c -o main.o >/dev/null 2>&1
+
+junwork:~/Desktop/libtool_make # libtool --mode=link gcc -o  main main.lo  /tmp/libcompress.la 
+libtool: link: gcc -o main .libs/main.o  /tmp/libcompress.so -lz  -Wl,-rpath -Wl,/tmp -Wl,-rpath -Wl,/tmp
+
+junwork:~/Desktop/libtool_make # libtool --mode=link gcc -o main main.lo /tmp/libcompress.la  -static-libtool-libs
+libtool: link: gcc -o main .libs/main.o  /tmp/libcompress.a -lz 
+
+
+junwork:~/Desktop/libtool_make # libtool --mode=uninstall rm /tmp/libcompress.la 
+libtool: uninstall: rm /tmp/libcompress.la /tmp/libcompress.so.0.0.0 /tmp/libcompress.so.0 /tmp/libcompress.so /tmp/libcompress.a
+
+-----------------
+
+module
+
+
+junwork:~/Desktop/libtool_make # libtool --mode=link gcc -o compress.la  compress.lo -rpath /tmp -lz -module -avoid-version 
+libtool: link: gcc -shared  -fPIC -DPIC  .libs/compress.o   -lz    -Wl,-soname -Wl,compress.so -o .libs/compress.so
+libtool: link: ar cru .libs/compress.a  compress.o
+libtool: link: ranlib .libs/compress.a
+libtool: link: ( cd ".libs" && rm -f "compress.la" && ln -s "../compress.la" "compress.la" )
+
+
+
+junwork:~/Desktop/libtool_make # libtool --features
+host: x86_64-unknown-linux-gnu
+enable shared libraries
+enable static libraries
+
+
+
+
+
+
+

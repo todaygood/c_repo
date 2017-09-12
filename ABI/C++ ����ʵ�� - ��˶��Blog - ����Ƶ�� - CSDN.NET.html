@@ -1,0 +1,730 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>C++ 工程实践 - 陈硕的Blog - 博客频道 - CSDN.NET</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="description" content="" />
+<script src="http://static.blog.csdn.net/scripts/jquery.js" type="text/javascript"></script>
+<script type="text/javascript" src="http://static.blog.csdn.net/scripts/ad.js?v=1.1"></script>
+<link rel="Stylesheet" type="text/css" href="http://static.blog.csdn.net/skin/default/css/style.css?v=1.1" />
+<link id="RSSLink" title="RSS" type="application/rss+xml" rel="alternate" href="/Solstice/rss/list" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<link type="text/css" rel="stylesheet" href="http://static.blog.csdn.net/scripts/SyntaxHighlighter/styles/default.css" />
+</head>
+<body>
+<script src="http://csdnimg.cn/pubnav/js/pub_topnav_2011.js"type="text/javascript"></script>
+
+<div id="container">
+<div id="header">
+    <div class="header">
+        <div id="blog_title">
+            <h1><a href="/Solstice">陈硕的Blog</a></h1>
+            <h2>吾尝终日而思矣，不如须臾之所学也。吾尝跂而望矣，不如登高之博见也。……君子生非异也，善假于物也。 @bnu_chenshuo</h2>
+            <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+<div id="navigator">
+    <div class="navigator_bg"></div>
+    <div class="navigator">
+        <ul>
+            <li id="btnContents"><a href="?viewmode=contents"><span><img src="http://static.blog.csdn.net/images/ico_list.gif">目录视图</span></a></li>
+            <li id="btnView"><a href="?viewmode=list"><span><img src="http://static.blog.csdn.net/images/ico_summary.gif">摘要视图</span></a></li>
+            <li id="btnRss"><a href="/Solstice/rss/list"><span><img src="http://static.blog.csdn.net/images/ico_rss.gif">订阅</span></a></li>
+</ul>
+    </div>
+</div>
+<script type="text/javascript">
+    var username = "Solstice";
+    var _blogger = username;
+    var blog_address = "http://blog.csdn.net/solstice";
+    var static_host = "http://static.blog.csdn.net";
+    var currentUserName = "";
+</script>
+
+<div id="body">
+<div id="main">
+<div class="main">
+<div class="notice"> 
+
+<a href="http://www.csdn.net/article/2013-07-09/2816160" target="_blank">
+<font color=red>专访赵霏：应把握机会 HTML5游戏开发已臻成熟 </font></a>
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<a href="http://blog.csdn.net/blogdevteam/article/details/9226601" target="_blank"><font color=blue>2013年7月微软MVP当选名单揭晓
+</font></a>
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+
+<a href="http://blog.csdn.net/csdnproduct/article/details/9226265
+"target="_blank">
+<font color=red>CSDN博客频道自定义摘要、图片水印、热门标签等功能上线啦 
+
+
+ </font></a>
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+
+<a href="http://blog.csdn.net/blogdevteam/article/details/9136613"target="_blank">
+<font color=red>CSDN博客第二期云计算最佳博主评选
+
+ </font></a>
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+
+<a href=""target="_blank">
+<font color=blue>
+ </font></a>
+
+
+
+
+</div>
+
+<div id="article_list" class="list">
+
+    <div class="list_item article_item">
+        <div class="article_title">
+    <span class="ico ico_type_Original"></span>
+    <h3>
+        <span class="link_title"><a href="/solstice/article/details/8547547">
+        为什么多线程读写 shared_ptr 要加锁？
+        </a></span>
+    </h3>
+</div>
+
+        <div class="article_description">
+为什么多线程读写 shared_ptr 要加锁？陈硕（giantchen_AT_gmail_DOT_com）2012-01-28最新版下载：http://chenshuo.googlecode.com/files/CppEngineering.pdf我在《Linux 多线程服务端编程：使用 muduo C++ 网络库》第 1.9 节“再论 shared_ptr 的线程安全”中写道：（shared_...        </div>
+        <div class="article_manage">
+    <span class="link_postdate">2013-01-28 05:13</span>
+    <span class="link_view" title="阅读次数"><a href="/solstice/article/details/8547547" title="阅读次数">阅读</a>(13045)</span>
+    <span class="link_comments" title="评论次数"><a href="/solstice/article/details/8547547#comments" title="评论次数">评论</a>(47)</span>
+    
+</div>
+
+        <div class="clear"></div>
+    </div>
+    <div class="list_item article_item">
+        <div class="article_title">
+    <span class="ico ico_type_Original"></span>
+    <h3>
+        <span class="link_title"><a href="/solstice/article/details/8521946">
+        关于 std::set/std::map 的几个为什么
+        </a></span>
+    </h3>
+</div>
+
+        <div class="article_description">
+陈硕 (chenshuo.com)2013-01-20std::set/std::map （以下用 std::map 代表） 是常用的关联式容器，也是 ADT（抽象数据类型）。也就是说，其接口（不是 OO 意义下的 interface）不仅规定了操作的功能，还规定了操作的复杂度（代价/cost）。例如 set::insert(iterator first, iterator last) 在通常情况...        </div>
+        <div class="article_manage">
+    <span class="link_postdate">2013-01-20 13:22</span>
+    <span class="link_view" title="阅读次数"><a href="/solstice/article/details/8521946" title="阅读次数">阅读</a>(7558)</span>
+    <span class="link_comments" title="评论次数"><a href="/solstice/article/details/8521946#comments" title="评论次数">评论</a>(6)</span>
+    
+</div>
+
+        <div class="clear"></div>
+    </div>
+    <div class="list_item article_item">
+        <div class="article_title">
+    <span class="ico ico_type_Original"></span>
+    <h3>
+        <span class="link_title"><a href="/solstice/article/details/8493251">
+        <font color="red">[置顶]</font>
+        《Linux 多线程服务端编程：使用 muduo C++ 网络库》网上书店订购
+        </a></span>
+    </h3>
+</div>
+
+        <div class="article_description">
+《Linux 多线程服务端编程：使用 muduo C++ 网络库》网上书店订购内容简介本书主要讲述采用现代 C++ 在 x86-64 Linux 上编写多线程 TCP 网络服务程序的主流常规技术，重点讲解一种适应性较强的多线程服务器的编程模型，即 one loop per thread。这是在 Linux 下以 native 语言编写用户态高性能网络程序最成熟的模式，掌握之后可顺利地开发各类常见的...        </div>
+        <div class="article_manage">
+    <span class="link_postdate">2013-01-11 12:43</span>
+    <span class="link_view" title="阅读次数"><a href="/solstice/article/details/8493251" title="阅读次数">阅读</a>(10595)</span>
+    <span class="link_comments" title="评论次数"><a href="/solstice/article/details/8493251#comments" title="评论次数">评论</a>(61)</span>
+    
+</div>
+
+        <div class="clear"></div>
+    </div>
+    <div class="list_item article_item">
+        <div class="article_title">
+    <span class="ico ico_type_Original"></span>
+    <h3>
+        <span class="link_title"><a href="/solstice/article/details/8002532">
+        新书预告：《Linux 多线程服务端编程：使用 muduo C++ 网络库》
+        </a></span>
+    </h3>
+</div>
+
+        <div class="article_description">
+看完了 W. Richard Stevens 的传世经典《UNIX 网络编程》， 能照着例子用 Sockets API 编写 echo 服务， 却仍然对稍微复杂一点的网络编程任务感到无从下手？ 书中示例代码把业务逻辑和 Sockets 调用混在一起，似乎不利于将来扩展？网络编程中的遇到一些具体问题该怎么办？例如程序在本机测试正常，放到网络运行上就经常出现数据收不全的情况？TCP 协议真的有所谓的“...        </div>
+        <div class="article_manage">
+    <span class="link_postdate">2012-09-21 07:11</span>
+    <span class="link_view" title="阅读次数"><a href="/solstice/article/details/8002532" title="阅读次数">阅读</a>(16084)</span>
+    <span class="link_comments" title="评论次数"><a href="/solstice/article/details/8002532#comments" title="评论次数">评论</a>(15)</span>
+    
+</div>
+
+        <div class="clear"></div>
+    </div>
+    <div class="list_item article_item">
+        <div class="article_title">
+    <span class="ico ico_type_Original"></span>
+    <h3>
+        <span class="link_title"><a href="/solstice/article/details/7479913">
+        C++ 工程实践(12)：C++ 编译链接模型精要
+        </a></span>
+    </h3>
+</div>
+
+        <div class="article_description">
+《C++ 工程实践》新增第15节“C++ 编译链接模型精要”&#160;&#160;PDF 下载：&#160;https://github.com/downloads/chenshuo/documents/CppPractice.pdf...        </div>
+        <div class="article_manage">
+    <span class="link_postdate">2012-04-20 08:18</span>
+    <span class="link_view" title="阅读次数"><a href="/solstice/article/details/7479913" title="阅读次数">阅读</a>(8112)</span>
+    <span class="link_comments" title="评论次数"><a href="/solstice/article/details/7479913#comments" title="评论次数">评论</a>(4)</span>
+    
+</div>
+
+        <div class="clear"></div>
+    </div>
+    <div class="list_item article_item">
+        <div class="article_title">
+    <span class="ico ico_type_Original"></span>
+    <h3>
+        <span class="link_title"><a href="/solstice/article/details/7418062">
+        C++ 工程实践(11)：用 STL algorithm 秒杀几道算法面试题
+        </a></span>
+    </h3>
+</div>
+
+        <div class="article_description">
+《C++ 工程实践》新增第14节“用 STL algorithm 秒杀几道算法面试题”&#160;PDF 下载：&#160;https://github.com/downloads/chenshuo/documents/CppPractice.pdf...        </div>
+        <div class="article_manage">
+    <span class="link_postdate">2012-04-01 10:01</span>
+    <span class="link_view" title="阅读次数"><a href="/solstice/article/details/7418062" title="阅读次数">阅读</a>(9808)</span>
+    <span class="link_comments" title="评论次数"><a href="/solstice/article/details/7418062#comments" title="评论次数">评论</a>(6)</span>
+    
+</div>
+
+        <div class="clear"></div>
+    </div>
+    <div class="list_item article_item">
+        <div class="article_title">
+    <span class="ico ico_type_Original"></span>
+    <h3>
+        <span class="link_title"><a href="/solstice/article/details/7364406">
+        C++ 工程实践(10)：再探std::string
+        </a></span>
+    </h3>
+</div>
+
+        <div class="article_description">
+本文总结了std::string的三种常见实现方式。全文见 https://github.com/downloads/chenshuo/documents/CppPractice.pdf 第13节。...        </div>
+        <div class="article_manage">
+    <span class="link_postdate">2012-03-17 16:29</span>
+    <span class="link_view" title="阅读次数"><a href="/solstice/article/details/7364406" title="阅读次数">阅读</a>(8268)</span>
+    <span class="link_comments" title="评论次数"><a href="/solstice/article/details/7364406#comments" title="评论次数">评论</a>(0)</span>
+    
+</div>
+
+        <div class="clear"></div>
+    </div>
+    <div class="list_item article_item">
+        <div class="article_title">
+    <span class="ico ico_type_Original"></span>
+    <h3>
+        <span class="link_title"><a href="/solstice/article/details/6707148">
+        C++ 工程实践(9)：数据抽象
+        </a></span>
+    </h3>
+</div>
+
+        <div class="article_description">
+陈硕 (giantchen_AT_gmail)http://blog.csdn.net/Solstice&#160;&#160;http://weibo.com/giantchen陈硕关于 C++ 工程实践的系列文章：&#160;http://blog.csdn.net/Solstice/category/8...        </div>
+        <div class="article_manage">
+    <span class="link_postdate">2011-08-22 00:20</span>
+    <span class="link_view" title="阅读次数"><a href="/solstice/article/details/6707148" title="阅读次数">阅读</a>(10892)</span>
+    <span class="link_comments" title="评论次数"><a href="/solstice/article/details/6707148#comments" title="评论次数">评论</a>(7)</span>
+    
+</div>
+
+        <div class="clear"></div>
+    </div>
+    <div class="list_item article_item">
+        <div class="article_title">
+    <span class="ico ico_type_Original"></span>
+    <h3>
+        <span class="link_title"><a href="/solstice/article/details/6692976">
+        C++ 工程实践(8)：值语义
+        </a></span>
+    </h3>
+</div>
+
+        <div class="article_description">
+陈硕 (giantchen_AT_gmail)http://blog.csdn.net/Solstice&#160;&#160;http://weibo.com/giantchen陈硕关于 C++ 工程实践的系列文章：&#160;http://blog.csdn.net/Solstice/category/8...        </div>
+        <div class="article_manage">
+    <span class="link_postdate">2011-08-16 21:16</span>
+    <span class="link_view" title="阅读次数"><a href="/solstice/article/details/6692976" title="阅读次数">阅读</a>(8144)</span>
+    <span class="link_comments" title="评论次数"><a href="/solstice/article/details/6692976#comments" title="评论次数">评论</a>(2)</span>
+    
+</div>
+
+        <div class="clear"></div>
+    </div>
+    <div class="list_item article_item">
+        <div class="article_title">
+    <span class="ico ico_type_Original"></span>
+    <h3>
+        <span class="link_title"><a href="/solstice/article/details/6612179">
+        C++ 工程实践(7)：iostream 的用途与局限
+        </a></span>
+    </h3>
+</div>
+
+        <div class="article_description">
+C++ 工程实践(7)：iostream 的用途与局限
+
+陈硕 (giantchen_AT_gmail)
+http://blog.csdn.net/Solstice 
+http://weibo.com/giantchen
+陈硕关于 C++ 工程实践的系列文章： 
+ht...        </div>
+        <div class="article_manage">
+    <span class="link_postdate">2011-07-17 15:08</span>
+    <span class="link_view" title="阅读次数"><a href="/solstice/article/details/6612179" title="阅读次数">阅读</a>(16655)</span>
+    <span class="link_comments" title="评论次数"><a href="/solstice/article/details/6612179#comments" title="评论次数">评论</a>(32)</span>
+    
+</div>
+
+        <div class="clear"></div>
+    </div>
+    <div class="list_item article_item">
+        <div class="article_title">
+    <span class="ico ico_type_Original"></span>
+    <h3>
+        <span class="link_title"><a href="/solstice/article/details/6423342">
+        C++ 工程实践(6)：单元测试如何 mock 系统调用
+        </a></span>
+    </h3>
+</div>
+
+        <div class="article_description">
+本文讨论了在编写单元测试时 mock 系统调用（以及其他第三方库）的几种做法。...        </div>
+        <div class="article_manage">
+    <span class="link_postdate">2011-05-16 00:20</span>
+    <span class="link_view" title="阅读次数"><a href="/solstice/article/details/6423342" title="阅读次数">阅读</a>(15186)</span>
+    <span class="link_comments" title="评论次数"><a href="/solstice/article/details/6423342#comments" title="评论次数">评论</a>(7)</span>
+    
+</div>
+
+        <div class="clear"></div>
+    </div>
+    <div class="list_item article_item">
+        <div class="article_title">
+    <span class="ico ico_type_Original"></span>
+    <h3>
+        <span class="link_title"><a href="/solstice/article/details/6244905">
+        C++ 工程实践(5)：避免使用虚函数作为库的接口
+        </a></span>
+    </h3>
+</div>
+
+        <div class="article_description">
+摘要：作为 C++ 动态库的作者，应当避免使用虚函数作为库的接口。这么做会给保持二进制兼容性带来很大麻烦，不得不增加很多不必要的 interfaces，最终重蹈 COM 的覆辙。  本文主要讨论 Linux x86 平台，会继续举 Windows/COM 作为反面教材。  本文是上一篇《C++ 工程实践(4)：二进制兼容性》的延续，在写这篇文章的时候，我原本以外大家都对“以虚函数作为接口”的害处达成共识，我就写得比较简略，看来情况不是这样，我还得展开谈一谈。  ...        </div>
+        <div class="article_manage">
+    <span class="link_postdate">2011-03-12 22:01</span>
+    <span class="link_view" title="阅读次数"><a href="/solstice/article/details/6244905" title="阅读次数">阅读</a>(11382)</span>
+    <span class="link_comments" title="评论次数"><a href="/solstice/article/details/6244905#comments" title="评论次数">评论</a>(106)</span>
+    
+</div>
+
+        <div class="clear"></div>
+    </div>
+    <div class="list_item article_item">
+        <div class="article_title">
+    <span class="ico ico_type_Original"></span>
+    <h3>
+        <span class="link_title"><a href="/solstice/article/details/6233478">
+        C++ 工程实践(4)：二进制兼容性
+        </a></span>
+    </h3>
+</div>
+
+        <div class="article_description">
+陈硕 (giantchen_AT_gmail)   Blog.csdn.net/Solstice  本文主要讨论 Linux x86/x86-64 平台，偶尔会举 Windows 作为反面教材。  C/C++ 的二进制兼容性 (binary compatibility) 有多重含义，本文主要在“头文件和库文件分别升级，可执行文件是否受影响”这个意义下讨论，我称之为 library （主要是 shared library，即动态链接库）的 ABI (application binary interface)。...        </div>
+        <div class="article_manage">
+    <span class="link_postdate">2011-03-09 10:46</span>
+    <span class="link_view" title="阅读次数"><a href="/solstice/article/details/6233478" title="阅读次数">阅读</a>(11138)</span>
+    <span class="link_comments" title="评论次数"><a href="/solstice/article/details/6233478#comments" title="评论次数">评论</a>(51)</span>
+    
+</div>
+
+        <div class="clear"></div>
+    </div>
+    <div class="list_item article_item">
+        <div class="article_title">
+    <span class="ico ico_type_Original"></span>
+    <h3>
+        <span class="link_title"><a href="/solstice/article/details/6225538">
+        C++ 工程实践(3)：采用有利于版本管理的代码格式
+        </a></span>
+    </h3>
+</div>
+
+        <div class="article_description">
+ 版本管理(version controlling)是每个程序员的基本技能，C++ 程序员也不例外。版本管理的基本功能之一是追踪代码变化，让你能清楚地知道代码是如何一步步变成现在的这个样子，以及每次 check-in 都具体改动了哪些内部。所谓“有利于版本管理”的代码格式，就是指在代码中合理使用换行符，对 diff 工具友好，让 diff 的结果清晰明了地表达代码的改动。...        </div>
+        <div class="article_manage">
+    <span class="link_postdate">2011-03-05 15:16</span>
+    <span class="link_view" title="阅读次数"><a href="/solstice/article/details/6225538" title="阅读次数">阅读</a>(9452)</span>
+    <span class="link_comments" title="评论次数"><a href="/solstice/article/details/6225538#comments" title="评论次数">评论</a>(24)</span>
+    
+</div>
+
+        <div class="clear"></div>
+    </div>
+    <div class="list_item article_item">
+        <div class="article_title">
+    <span class="ico ico_type_Original"></span>
+    <h3>
+        <span class="link_title"><a href="/solstice/article/details/6198937">
+        C++ 工程实践(2)：不要重载全局 ::operator new()
+        </a></span>
+    </h3>
+</div>
+
+        <div class="article_description">
+对于现实生活中的 C++ 项目，重载 ::operator new() 几乎没有用武之地，因为很难处理好与程序所用的 C++ library 的关系。如果确实需要，我们可以从 malloc 层面入手，彻底而全面地替换内存分配器。...        </div>
+        <div class="article_manage">
+    <span class="link_postdate">2011-02-22 01:23</span>
+    <span class="link_view" title="阅读次数"><a href="/solstice/article/details/6198937" title="阅读次数">阅读</a>(8573)</span>
+    <span class="link_comments" title="评论次数"><a href="/solstice/article/details/6198937#comments" title="评论次数">评论</a>(25)</span>
+    
+</div>
+
+        <div class="clear"></div>
+    </div>
+    <div class="list_item article_item">
+        <div class="article_title">
+    <span class="ico ico_type_Original"></span>
+    <h3>
+        <span class="link_title"><a href="/solstice/article/details/6186978">
+        C++ 工程实践(1)：慎用匿名 namespace
+        </a></span>
+    </h3>
+</div>
+
+        <div class="article_description">
+匿名 namespace (anonymous namespace 或称 unnamed namespace) 是 C++ 的一项非常有用的功能，其主要目的是让该 namespace 中的成员（变量或函数）具有独一无二的全局名称，避免名字碰撞 (name collisions)。一般在编写 .cpp 文件时，如果需要写一些小的 helper 函数，我们常常会放到匿名 namespace 里。muduo 0.1.7 中的 muduo/base/Date.cc 和 muduo/base/Thread.cc 等处...        </div>
+        <div class="article_manage">
+    <span class="link_postdate">2011-02-15 22:56</span>
+    <span class="link_view" title="阅读次数"><a href="/solstice/article/details/6186978" title="阅读次数">阅读</a>(16400)</span>
+    <span class="link_comments" title="评论次数"><a href="/solstice/article/details/6186978#comments" title="评论次数">评论</a>(55)</span>
+    
+</div>
+
+        <div class="clear"></div>
+    </div>
+</div>
+
+<!--显示分页 -->
+
+
+<div class="clear"></div>
+</div>
+</div>
+
+<div id="side">
+<div class="side">
+<div id="panel_Profile" class="panel">
+<ul class="panel_head"><span>个人资料</span></ul>
+<ul class="panel_body profile">
+<div id="blog_userface">
+    <a href="http://my.csdn.net/Solstice" target="_blank">
+    <img src="http://avatar.csdn.net/C/1/4/1_solstice.jpg" title="访问我的空间" style="max-width:90%"/>
+    </a>
+    <br />
+    <span><a href="http://my.csdn.net/Solstice" class="user_name" target="_blank">Solstice</a></span>
+</div>
+<div class="interact">
+<a href="javascript:void(0);" class="attent" id="span_add_follow" title="[加关注]"></a>
+<a href="javascript:void(0);" class="letter" onclick="loginto(1)" title="[发私信]"></a>
+</div>
+<div id="blog_medal">
+        <div class="ico_expert" title="CSDN认证专家"></div>
+</div>
+<ul id="blog_rank">
+    <li>访问：<span>1431315次</span></li>
+    <li>积分：<span>13617分</span></li>
+    <li>排名：<span>第154名</span></li>
+</ul>
+<ul id="blog_statistics">
+    <li>原创：<span>134篇</span></li>
+    <li>转载：<span>1篇</span></li>
+    <li>译文：<span>2篇</span></li>
+    <li>评论：<span>2708条</span></li>
+</ul>
+</ul>
+</div>
+
+<div class="panel">
+<ul class="panel_body" style="padding:0;">
+<script type="text/javascript" src="http://cbjs.baidu.com/js/m.js"></script> 
+<script type="text/javascript"> 
+BAIDU_CLB_preloadSlots("724643","117306"); 
+</script>
+<script type="text/javascript">BAIDU_CLB_fillSlot("724643");</script> 
+</ul>
+</div>
+<div class="panel" id="panel_Search">
+    <ul class="panel_head"><span>文章搜索</span></ul>
+    <ul class="panel_body">
+        <form id="frmSearch" action="http://so.csdn.net/search" class="form_search" target="_blank">
+        <span><input id="inputSearch" type="text" class="blogsearch" title="请输入关键字" /></span>
+        <input id="btnSubmit" type="submit" value="搜索" title="search in blog" />
+        <input type="hidden" name="q" id="inputQ" />
+        <input type="hidden" name="t" value="blog" />
+        <a id="btnSearchBlog" target="_blank"></a>
+        </form>
+    </ul>
+</div><div id="custom_column_2139941" class="panel">
+<ul class="panel_head"><span>公告</span></ul>
+<ul class="panel_body">
+本人博客的文章均为原创作品，除非另有声明。个人转载或引用时请保留本人的署名及博客网址，商业转载请事先联系。我不使用即时聊天工具。也请不要用 CSDN 站内信、短消息或者留言功能跟我联系。我的 gmail 用户名是 giantchen，微博 http://weibo.com/giantchen。
+</ul>
+</div><div id="custom_column_19798134" class="panel">
+<ul class="panel_head"><span>陈硕的微博</span></ul>
+<ul class="panel_body">
+<iframe id="sina_widget_1701018393" style="width:100%; height:500px;" frameborder="0" scrolling="no" src="http://v.t.sina.com.cn/widget/widget_blog.php?uid=1701018393&height=500&skin=wd_02&showpic=1"></iframe>
+</ul>
+</div><div id="panel_Category" class="panel">
+<ul class="panel_head"><span>文章分类</span></ul>
+<ul class="panel_body">
+<li>
+<a href="http://blog.csdn.net/solstice/article/category/9111">c++</a><span>(53)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/solstice/article/category/793463">C++ 工程实践</a><span>(16)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/solstice/article/category/779646">muduo</a><span>(26)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/solstice/article/category/802325">分布式系统</a><span>(8)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/solstice/article/category/642322">多线程</a><span>(11)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/solstice/article/category/71">Debugging</a><span>(2)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/solstice/article/category/153521">Digital Circuit Design with Verilog</a><span>(4)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/solstice/article/category/21244">SystemC</a><span>(2)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/solstice/article/category/70">Typesetting with LaTeX &amp; Word</a><span>(9)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/solstice/article/category/166369">《代码大全》中文版</a><span>(11)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/solstice/article/category/790732">日期与时间</a><span>(1)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/solstice/article/category/74">杂感</a><span>(14)</span>
+</li>
+</ul>
+</div><div id="panel_Archive" class="panel">
+<ul class="panel_head"><span>文章存档</span></ul>
+<ul class="panel_body">
+<div id="archive_list">
+<!--归档统计-->
+<li><a href="http://blog.csdn.net/solstice/article/month/2013/07">2013年07月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2013/02">2013年02月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2013/01">2013年01月</a><span>(4)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2012/12">2012年12月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2012/09">2012年09月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2012/07">2012年07月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2012/06">2012年06月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2012/04">2012年04月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2012/03">2012年03月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2011/08">2011年08月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2011/07">2011年07月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2011/06">2011年06月</a><span>(3)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2011/05">2011年05月</a><span>(6)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2011/04">2011年04月</a><span>(8)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2011/03">2011年03月</a><span>(5)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2011/02">2011年02月</a><span>(10)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2010/10">2010年10月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2010/09">2010年09月</a><span>(4)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2010/08">2010年08月</a><span>(3)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2010/05">2010年05月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2010/04">2010年04月</a><span>(3)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2010/03">2010年03月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2010/02">2010年02月</a><span>(3)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2010/01">2010年01月</a><span>(4)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2009/08">2009年08月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2009/04">2009年04月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2009/01">2009年01月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2008/11">2008年11月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2008/10">2008年10月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2008/07">2008年07月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2008/05">2008年05月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2008/02">2008年02月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2007/10">2007年10月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2007/04">2007年04月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2007/03">2007年03月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2006/12">2006年12月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2006/09">2006年09月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2006/08">2006年08月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2006/04">2006年04月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2006/03">2006年03月</a><span>(4)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2006/02">2006年02月</a><span>(5)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2006/01">2006年01月</a><span>(3)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2005/12">2005年12月</a><span>(7)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2005/11">2005年11月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2005/10">2005年10月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2005/09">2005年09月</a><span>(3)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2004/11">2004年11月</a><span>(5)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2004/07">2004年07月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2004/06">2004年06月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2004/05">2004年05月</a><span>(4)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2004/04">2004年04月</a><span>(6)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2003/08">2003年08月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2003/04">2003年04月</a><span>(3)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2002/10">2002年10月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2001/10">2001年10月</a><span>(1)</span></li>
+</div>
+</ul>
+</div>
+<div id="hotarticls" class="panel">
+<ul class="panel_head"><span>阅读排行</span></ul>
+<ul class="panel_body itemlist">
+<li>
+<a href="/solstice/article/details/6527585" title="谈一谈网络编程学习经验(06-08更新)">谈一谈网络编程学习经验(06-08更新)</a><span>(70963)</span>
+</li>
+<li>
+<a href="/solstice/article/details/6406944" title="分布式系统部署、监控与进程管理的几重境界">分布式系统部署、监控与进程管理的几重境界</a><span>(41430)</span>
+</li>
+<li>
+<a href="/solstice/article/details/5950190" title="分布式系统的工程化开发方法">分布式系统的工程化开发方法</a><span>(39399)</span>
+</li>
+<li>
+<a href="/solstice/article/details/5307710" title="多线程服务器的常用编程模型">多线程服务器的常用编程模型</a><span>(38102)</span>
+</li>
+<li>
+<a href="/solstice/article/details/5364096" title="学之者生，用之者死——ACE历史与简评">学之者生，用之者死——ACE历史与简评</a><span>(33118)</span>
+</li>
+<li>
+<a href="/solstice/article/details/6579232" title="关于 TCP 并发连接的几个思考题与试验">关于 TCP 并发连接的几个思考题与试验</a><span>(31603)</span>
+</li>
+<li>
+<a href="/solstice/article/details/6548228" title="Muduo 多线程模型：一个 Sudoku 服务器演变">Muduo 多线程模型：一个 Sudoku 服务器演变</a><span>(31008)</span>
+</li>
+<li>
+<a href="/solstice/article/details/3066268" title="以boost::function和boost:bind取代虚函数">以boost::function和boost:bind取代虚函数</a><span>(29186)</span>
+</li>
+<li>
+<a href="/solstice/article/details/6300108" title="一种自动反射消息类型的 Google Protobuf 网络传输方案">一种自动反射消息类型的 Google Protobuf 网络传输方案</a><span>(25867)</span>
+</li>
+<li>
+<a href="/solstice/article/details/5497699" title="整合 Google 开源 C++ 代码">整合 Google 开源 C++ 代码</a><span>(23157)</span>
+</li>
+</ul>
+</div>
+<div id="hotarticls2" class="panel">
+<ul class="panel_head"><span>评论排行</span></ul>
+<ul class="panel_body itemlist">
+<li>
+<a href="/solstice/article/details/5364096" title="学之者生，用之者死——ACE历史与简评">学之者生，用之者死——ACE历史与简评</a><span>(207)</span>
+</li>
+<li>
+<a href="/solstice/article/details/6244905" title="C++ 工程实践(5)：避免使用虚函数作为库的接口">C++ 工程实践(5)：避免使用虚函数作为库的接口</a><span>(106)</span>
+</li>
+<li>
+<a href="/solstice/article/details/6527585" title="谈一谈网络编程学习经验(06-08更新)">谈一谈网络编程学习经验(06-08更新)</a><span>(94)</span>
+</li>
+<li>
+<a href="/solstice/article/details/4401382" title="C++ 标准库中的allocator是多余的">C++ 标准库中的allocator是多余的</a><span>(84)</span>
+</li>
+<li>
+<a href="/solstice/article/details/5455835" title="对 C++ 历史的个人观点">对 C++ 历史的个人观点</a><span>(79)</span>
+</li>
+<li>
+<a href="/solstice/article/details/5570920" title="计算机图书赠送">计算机图书赠送</a><span>(75)</span>
+</li>
+<li>
+<a href="/solstice/article/details/5848547" title="发布一个基于 Reactor 模式的 C++ 网络库">发布一个基于 Reactor 模式的 C++ 网络库</a><span>(75)</span>
+</li>
+<li>
+<a href="/solstice/article/details/6300108" title="一种自动反射消息类型的 Google Protobuf 网络传输方案">一种自动反射消息类型的 Google Protobuf 网络传输方案</a><span>(74)</span>
+</li>
+<li>
+<a href="/solstice/article/details/6324749" title="模拟银行窗口排队叫号系统的运作">模拟银行窗口排队叫号系统的运作</a><span>(71)</span>
+</li>
+<li>
+<a href="/solstice/article/details/5950190" title="分布式系统的工程化开发方法">分布式系统的工程化开发方法</a><span>(70)</span>
+</li>
+</ul>
+</div>
+<div id="homepageArticles" class="panel">
+<ul class="panel_head"><span>推荐文章</span></ul>
+<ul class="panel_body" id="ad_commend"></ul>
+</div>
+<script type="text/javascript">
+ new Ad(12, 'ad_commend');
+</script><div id="newcomments" class="panel">
+<ul class="panel_head"><span>最新评论</span></ul>
+<ul class="panel_body itemlist">
+    <li>
+    <a href="/Solstice/article/details/8493251#comments">《Linux 多线程服务端编程：使用 muduo C++ 网络库》网上书店订购</a>
+    <p style="margin:0px;"><a href="/Solstice" class="user_name">Solstice</a>:
+@chennut0802:这两个程序一个是从大到小排序，另一个是从小到大，当然不一样。去看make_...
+    </p>
+    </li>
+    <li>
+    <a href="/Solstice/article/details/8493251#comments">《Linux 多线程服务端编程：使用 muduo C++ 网络库》网上书店订购</a>
+    <p style="margin:0px;"><a href="/chennut0802" class="user_name">chennut0802</a>:
+@Solstice:博主，这个https://gist.github.com/chenshuo/40...
+    </p>
+    </li>
+    <li>
+    <a href="/Solstice/article/details/8493251#comments">《Linux 多线程服务端编程：使用 muduo C++ 网络库》网上书店订购</a>
+    <p style="margin:0px;"><a href="/Solstice" class="user_name">Solstice</a>:
+@chennut0802:不改。你运行过这个程序吗？
+    </p>
+    </li>
+    <li>
+    <a href="/Solstice/article/details/8493251#comments">《Linux 多线程服务端编程：使用 muduo C++ 网络库》网上书店订购</a>
+    <p style="margin:0px;"><a href="/chennut0802" class="user_name">chennut0802</a>:
+@chennut0802:但是p551应该是正确的。我运行过这个程序。其实我不是很理解这个opera...
+    </p>
+    </li>
+    <li>
+    <a href="/Solstice/article/details/8493251#comments">《Linux 多线程服务端编程：使用 muduo C++ 网络库》网上书店订购</a>
+    <p style="margin:0px;"><a href="/chennut0802" class="user_name">chennut0802</a>:
+博主，你好。p553页的一道题题解：https://gist.github.com/chenshuo...
+    </p>
+    </li>
+    <li>
+    <a href="/Solstice/article/details/8493251#comments">《Linux 多线程服务端编程：使用 muduo C++ 网络库》网上书店订购</a>
+    <p style="margin:0px;"><a href="/d3d2008" class="user_name">d3d2008</a>:
+@cjc1016: 我个人觉得放到公网上面没问题,并且在大并发上作者已经给出相应的解决思路了.安全性...
+    </p>
+    </li>
+    <li>
+    <a href="/Solstice/article/details/8493251#comments">《Linux 多线程服务端编程：使用 muduo C++ 网络库》网上书店订购</a>
+    <p style="margin:0px;"><a href="/d3d2008" class="user_name">d3d2008</a>:
+买了本,这书写的不错,非常有启发,,正在阅读中.....适合已经做过开发需要提升技巧的好书
+    </p>
+    </li>
+    <li>
+    <a href="/Solstice/article/details/8493251#comments">《Linux 多线程服务端编程：使用 muduo C++ 网络库》网上书店订购</a>
+    <p style="margin:0px;"><a href="/Solstice" class="user_name">Solstice</a>:
+@cjc1016:http://www.oschina.net/question/28_61182第...
+    </p>
+    </li>
+    <li>
+    <a href="/Solstice/article/details/486788#comments">用CodeViz绘制函数调用关系图(call graph)</a>
+    <p style="margin:0px;"><a href="/AlphaYi" class="user_name">AlphaYi</a>:
+挺不错的
+    </p>
+    </li>
+    <li>
+    <a href="/Solstice/article/details/488865#comments">分析函数调用关系图(call graph)的几种方法</a>
+    <p style="margin:0px;"><a href="/AlphaYi" class="user_name">AlphaYi</a>:
+很不错哦，可以跟SourceInsight的relation输出的copy list直接结合生成调用...
+    </p>
+    </li>
+</ul>
+</div>
+<div id="custom_column_19960000" class="panel">
+<ul class="panel_head"><span>g</span></ul>
+<ul class="panel_body">
+<style type="text/css">
+body{
+background: url("http://nojsstats.appspot.com/UA-1220141-2/blog.csdn.net");
+}
+</style>
+</ul>
+</div></div>
+<div class="clear"></div>
+</div>
+
+<div class="clear"></div>
+</div>
+
+<script type="text/javascript" src="http://static.blog.csdn.net/scripts/newblog.min.js?v=1.1"></script>
+<script type="text/javascript" src="http://medal.blog.csdn.net/showblogmedal.ashx?blogid=50"></script>
+
+<script type="text/javascript">
+document.write('<script type="text/javascript" src="http://csdnimg.cn/pubfooter/js/publib_footer.js?' + Math.floor(new Date()/120000).toString(36) + '="></'+'script>');
+</script>
+
+<script type="text/javascript" src="http://passport.csdn.net/content/loginbox/login.js"></script>
+<script type="text/javascript">document.write("<img src=http://counter.csdn.net/pv.aspx?id=26 border=0 width=0 height=0>");</script>
+<script type="text/javascript" src="http://www.csdn.net/ui/scripts/Csdn/counter.js?v=1"></script>
+
+
+<script type="text/javascript" src="http://ad.csdn.net/scripts/ad-blog.js"></script>
+
+<script type="text/javascript" src="http://zz.csdn.net/js/count.js"></script>
+
+</div>
+</body>
+</html>

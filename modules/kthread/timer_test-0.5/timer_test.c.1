@@ -1,0 +1,101 @@
+#include <linux/module.h>
+#include <linux/init.h>
+#include <linux/kmod.h>
+#include <linux/slab.h>
+#include <linux/timer.h>
+#include <linux/jiffies.h>
+#include <asm/param.h>
+
+int delay = 10;  // 
+module_param(delay,int,0644);
+
+
+struct timer_list exp_timer;
+
+int count=0;
+//do_gettimeofday(struct timeval *tv)
+
+
+struct tm_data
+{
+	struct timeval tmv;
+	unsigned long irqc;
+    unsigned long jiff;	
+
+};
+
+struct tm_data first; //static
+struct tm_data second; //var
+struct tm_data third ; //var
+
+void get_tm_data(struct tm_data *td)
+{
+		do_gettimeofday(&(td->tmv));
+        td->irqc= kstat_irqs_cpu(0,0);
+		td->jiff= get_jiffies_64();
+}
+
+
+
+static void do_something(unsigned long data)
+{
+		unsigned long  irq_diff;
+		unsigned long  total_irq_diff;
+		unsigned long  jiff_diff;
+		unsigned long  total_jiff_diff;
+			
+		count++;
+	    get_tm_data(&third);		
+
+		memcpy(second,(struct tm_data*)data,sizeof(struct tm_data));
+
+//		diff =       timeval_to_jiffies(&b)-timeval_to_jiffies(&c);
+//		total_diff = timeval_to_jiffies(&b)-timeval_to_jiffies(&a);
+		irq_diff = third.irqc- second.irqc;
+		total_irq_diff = third.irqc-first.irqc;
+
+	    jiff_diff= third.jiff - second.jiff;
+		total_jiff_diff = third.jiff - first.jiff;
+		
+
+        printk(KERN_INFO "%5d timer %d expired,irq_diff %u %u real jiffies diff:%u %u\n",
+			   count,irq_diff, total_irq_diff,jiff_diff,total_jiff_diff 
+			  );
+
+        exp_timer.data = &third;
+		mod_timer(&exp_timer, jiffies + delay*HZ);
+}
+
+static int __init tst_init(void)
+{       
+        printk(KERN_INFO "Init called\n");
+
+        //init_timer_on_stack(&exp_timer);
+        init_timer(&exp_timer);
+
+		do_gettimeofday(&first.tmv);
+        first.irqc=	kstat_irqs_cpu(0,0);
+		first.jiff= get_jiffies_64();
+
+		get_tm_data(&first);
+
+        exp_timer.expires = jiffies + delay * HZ;
+        exp_timer.data = &first;
+        exp_timer.function = do_something;
+
+        add_timer(&exp_timer);
+
+
+        return 0;
+}
+
+static void __exit tst_exit(void)
+{       
+        del_timer(&exp_timer);  
+        printk(KERN_INFO "Exit called\n");
+}
+
+module_init(tst_init);
+module_exit(tst_exit);
+
+MODULE_LICENSE("GPL");

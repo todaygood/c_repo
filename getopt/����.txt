@@ -1,0 +1,25 @@
+
+
+
+
+编写getopt程序时要注意程序的健壮性。
+组合测试。
+
+
+区分：可选参数还是必选参数
+
+
+Example:
+
+Vsles11sp1 /mnt/Pub/getopt #./getopt_long_demo --v -o abcd
+argc=4,optind=4
+no-index: 0
+language: (null)
+output: abcd
+verbosity: 1
+randomized: 0
+numInputFiles:0
+
+
+输入文件没有填写，竟然不报错！。
+

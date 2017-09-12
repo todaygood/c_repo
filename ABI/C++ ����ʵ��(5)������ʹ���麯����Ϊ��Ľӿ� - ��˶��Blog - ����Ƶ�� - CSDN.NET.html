@@ -1,0 +1,824 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>C++ 工程实践(5)：避免使用虚函数作为库的接口 - 陈硕的Blog - 博客频道 - CSDN.NET</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="description" content="摘要：作为 C++ 动态库的作者，应当避免使用虚函数作为库的接口。这么做会给保持二进制兼容性带来很大麻烦，不得不增加很多不必要的 interfaces，最终重蹈 COM 的覆辙。  本文主要讨论 Linux x86 平台，会继续举 Windows/COM 作为反面教材。  本文是上一篇《C++ 工程实践(4)：二进制兼容性》的延续，在写这篇文章的时候，我原本以外大家都对“以虚函数作为接口”的害处达成共识，我就写得比较简略，看来情况不是这样，我还得展开谈一谈。  " />
+<script src="http://static.blog.csdn.net/scripts/jquery.js" type="text/javascript"></script>
+<script type="text/javascript" src="http://static.blog.csdn.net/scripts/ad.js?v=1.1"></script>
+<link rel="Stylesheet" type="text/css" href="http://static.blog.csdn.net/skin/default/css/style.css?v=1.1" />
+<link id="RSSLink" title="RSS" type="application/rss+xml" rel="alternate" href="/Solstice/rss/list" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<link type="text/css" rel="stylesheet" href="http://static.blog.csdn.net/scripts/SyntaxHighlighter/styles/default.css" />
+</head>
+<body>
+<script src="http://csdnimg.cn/pubnav/js/pub_topnav_2011.js"type="text/javascript"></script>
+
+<div id="container">
+<div id="header">
+    <div class="header">
+        <div id="blog_title">
+            <h1><a href="/Solstice">陈硕的Blog</a></h1>
+            <h2>吾尝终日而思矣，不如须臾之所学也。吾尝跂而望矣，不如登高之博见也。……君子生非异也，善假于物也。 @bnu_chenshuo</h2>
+            <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+<div id="navigator">
+    <div class="navigator_bg"></div>
+    <div class="navigator">
+        <ul>
+            <li id="btnContents"><a href="/Solstice?viewmode=contents"><span><img src="http://static.blog.csdn.net/images/ico_list.gif">目录视图</span></a></li>
+            <li id="btnView"><a href="/Solstice?viewmode=list"><span><img src="http://static.blog.csdn.net/images/ico_summary.gif">摘要视图</span></a></li>
+            <li id="btnRss"><a href="/Solstice/rss/list"><span><img src="http://static.blog.csdn.net/images/ico_rss.gif">订阅</span></a></li>
+</ul>
+    </div>
+</div>
+<script type="text/javascript">
+    var username = "Solstice";
+    var _blogger = username;
+    var blog_address = "http://blog.csdn.net/solstice";
+    var static_host = "http://static.blog.csdn.net";
+    var currentUserName = "todaygood2004";
+</script>
+
+<div id="body">
+<div id="main">
+<div class="main">
+<div class="notice"> 
+
+<a href="http://www.csdn.net/article/2013-07-09/2816160" target="_blank">
+<font color=red>专访赵霏：应把握机会 HTML5游戏开发已臻成熟 </font></a>
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<a href="http://blog.csdn.net/blogdevteam/article/details/9226601" target="_blank"><font color=blue>2013年7月微软MVP当选名单揭晓
+</font></a>
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+
+<a href="http://blog.csdn.net/csdnproduct/article/details/9226265
+"target="_blank">
+<font color=red>CSDN博客频道自定义摘要、图片水印、热门标签等功能上线啦 
+
+
+ </font></a>
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+
+<a href="http://blog.csdn.net/blogdevteam/article/details/9136613"target="_blank">
+<font color=red>CSDN博客第二期云计算最佳博主评选
+
+ </font></a>
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+
+<a href=""target="_blank">
+<font color=blue>
+ </font></a>
+
+
+
+
+</div>
+<div id="article_details" class="details">
+    <div class="article_title">
+    <span class="ico ico_type_Original"></span>
+    <h3>
+        <span class="link_title"><a href="/solstice/article/details/6244905">
+        C++ 工程实践(5)：避免使用虚函数作为库的接口
+        </a></span>
+    </h3>
+</div>
+
+        
+    <div class="article_manage">
+        <span class="link_categories">
+        分类：
+            <a href="/Solstice/article/category/793463">C++ 工程实践</a> 
+            <a href="/Solstice/article/category/9111">c++</a> 
+        </span>
+    <span class="link_postdate">2011-03-12 22:01</span>
+    <span class="link_view" title="阅读次数">11381人阅读</span>
+    <span class="link_comments" title="评论次数"><a href="#comments">评论</a>(106)</span>
+    <span class="link_collect"><a href="javascript:void(0);" onclick="javascript:collectArticle('C++ 工程实践(5)：避免使用虚函数作为库的接口','6244905');return false;" title="收藏">收藏</a></span>
+    <span class="link_report"><a href="#report"  onclick="javascript:report(6244905,2);return false;" title="举报">举报</a></span>
+    
+</div>
+<div class="tag2box"><a href='http://blog.csdn.net/tag/details.html?tag=c%2b%2b' target=_blank>c++</a><a href='http://blog.csdn.net/tag/details.html?tag=interface' target=_blank>interface</a><a href='http://blog.csdn.net/tag/details.html?tag=class' target=_blank>class</a><a href='http://blog.csdn.net/tag/details.html?tag=function' target=_blank>function</a><a href='http://blog.csdn.net/tag/details.html?tag=%e8%af%ad%e8%a8%80' target=_blank>语言</a><a href='http://blog.csdn.net/tag/details.html?tag=linux' target=_blank>linux</a></div>
+
+
+    
+<div id="article_content" class="article_content">
+<p>陈硕 (giantchen_AT_gmail) </p>
+<p>Blog.csdn.net/Solstice </p>
+<p>&nbsp;</p>
+<p>摘要：作为 C++ 动态库的作者，应当避免使用虚函数作为库的接口。这么做会给保持二进制兼容性带来很大麻烦，不得不增加很多不必要的 interfaces，最终重蹈 COM 的覆辙。</p>
+<p>本文主要讨论 Linux x86 平台，会继续举 Windows/COM 作为反面教材。</p>
+<p>本文是上一篇《<a href="http://blog.csdn.net/Solstice/archive/2011/03/09/6233478.aspx">C++ 工程实践(4)：二进制兼容性</a>》的延续，在写这篇文章的时候，我原本以外大家都对&ldquo;以虚函数作为接口&rdquo;的害处达成共识，我就写得比较简略，看来情况不是这样，我还得展开谈一谈。</p>
+<p>&ldquo;接口&rdquo;有广义和狭义之分，本文用中文&ldquo;接口&rdquo;表示广义的接口，即一个库的代码界面；用英文 interface 表示狭义的接口，即只包含 virtual function 的 class，这种 class 通常没有 data member，在 Java 里有一个专门的关键字 interface 来表示它。</p>
+<h1>C++ 程序库的作者的生存环境 </h1>
+<p>假设你是一个 shared library 的维护者，你的 library 被公司另外两三个团队使用了。你发现了一个安全漏洞，或者某个会导致 crash 的 bug 需要紧急修复，那么你修复之后，能不能直接部署 library 的二进制文件？有没有破坏二进制兼容性？会不会破坏别人团队已经编译好的投入生成环境的可执行文件？是不是要强迫别的团队重新编译链接，把可执行文件也发布新版本？会不会打乱别人的 release cycle？这些都是工程开发中经常要遇到的问题。</p>
+<p>如果你打算新写一个 C++ library，那么通常要做以下几个决策：</p>
+<ul>
+<li>以什么方式发布？动态库还是静态库？（本文不考虑源代码发布这种情况，这其实和静态库类似。） </li>
+<li>以什么方式暴露库的接口？可选的做法有：以全局（含 namespace 级别）函数为接口、以 class 的 non-virtual 成员函数为接口、以 virtual 函数为接口（interface）。 </li>
+</ul>
+<p>（Java 程序员没有这么多需要考虑的，直接写 class 成员函数就行，最多考虑一下要不要给 method 或 class 标上 final。也不必考虑动态库静态库，都是 .jar 文件。）</p>
+<p>在作出上面两个决策之前，我们考虑两个基本假设：</p>
+<ul>
+<li>代码会有 bug，库也不例外。将来可能会发布 bug fixes。 </li>
+<li>会有新的功能需求。写代码不是一锤子买卖，总是会有新的需求冒出来，需要程序员往库里增加东西。这是好事情，让程序员不丢饭碗。 </li>
+</ul>
+<p>（如果你的代码第一次发布的时候就已经做到完美，将来不需要任何修改，那么怎么做都行，也就不必继续阅读本文。）</p>
+<p>也就是说，<strong>在设计库的时候必须要考虑将来如何升级</strong>。</p>
+<p>基于以上两个基本假设来做决定。第一个决定很好做，如果需要 hot fix，那么只能用动态库；否则，在分布式系统中使用静态库更容易部署，这在前文中已经谈过。（&ldquo;动态库比静态库节约内存&rdquo;这种优势在今天看来已不太重要。）</p>
+<p>以下本文假定你或者你的老板选择以动态库方式发布，即发布 .so 或 .dll 文件，来看看第二个决定怎么做。（再说一句，如果你能够以静态库方式发布，后面的麻烦都不会遇到。）</p>
+<p>第二个决定不是那么容易做，关键问题是，要选择一种可扩展的 (extensible) 接口风格，让库的升级变得更轻松。&ldquo;升级&rdquo;有两层意思：</p>
+<ul>
+<li>对于 bug fix only 的升级，二进制库文件的替换应该兼容现有的二进制可执行文件，二进制兼容性方面的问题已经在前文谈过，这里从略。 </li>
+<li>对于新增功能的升级，应该对客户代码的友好。升级库之后，客户端使用新功能的代价应该比较小。只需要包含新的头文件（这一步都可以省略，如果新功能已经加入原有的头文件中），然后编写新代码即可。而且，不要在客户代码中留下<strong>垃圾</strong>，后文我们会谈到什么是垃圾。 </li>
+</ul>
+<p>在讨论虚函数接口的弊端之前，我们先看看虚函数做接口的常见用法。</p>
+<h1>虚函数作为库的接口的两大用途</h1>
+<p>虚函数为接口大致有这么两种用法：</p>
+<ol>
+<li><strong>调用</strong>，也就是库提供一个什么功能（比如绘图 Graphics），以虚函数为接口方式暴露给客户端代码。客户端代码一般不需要继承这个 interface，而是直接调用其 member function。这么做据说是有利于接口和实现分离，我认为纯属脱了裤子放屁。 </li>
+<li><strong>回调</strong>，也就是事件通知，比如网络库的&ldquo;连接建立&rdquo;、&ldquo;数据到达&rdquo;、&ldquo;连接断开&rdquo;等等。客户端代码一般会继承这个 interface，然后把对象实例注册到库里边，等库来回调自己。一般来说客户端不会自己去调用这些 member function，除非是为了写单元测试，模拟库的行为。 </li>
+<li><strong>混合</strong>，一个 class 既可以被客户端代码继承用作回调，又可以被客户端直接调用。说实话我没看出这么做的好处，但实际中某些面向对象的 C++ 库就是这么设计的。 </li>
+</ol>
+<p>对于&ldquo;回调&rdquo;方式，现代 C++ 有更好的做法，即 boost::function + boost::bind，见参考文献[4]，muduo 的回调全部采用这种新方法，见《<a href="http://blog.csdn.net/Solstice/archive/2011/02/02/6171831.aspx">Muduo 网络编程示例之零：前言</a>》。本文以下不考虑以虚函数为回调的过时的做法。</p>
+<p>对于&ldquo;调用&rdquo;方式，这里举一个虚构的图形库，这个库的功能是画线、画矩形、画圆弧：</p>
+<div id="codeSnippetWrapper">
+<div id="codeSnippet" style="text-align: left; line-height: 12pt; background-color: #f4f4f4; width: 100%; font-family: 'Courier New', courier, monospace; direction: ltr; color: black; font-size: 8pt; overflow: visible; border-style: none; padding: 0px;">
+<pre style="text-align: left; line-height: 12pt; background-color: white; margin: 0em; width: 100%; font-family: 'Courier New', courier, monospace; direction: ltr; color: black; font-size: 8pt; overflow: visible; border-style: none; padding: 0px;"><span id="lnum1" style="color: #606060">   1:</span> <span style="color: #0000ff">struct</span> Point</pre>
+<!--CRLF-->
+<pre style="text-align: left; line-height: 12pt; background-color: #f4f4f4; margin: 0em; width: 100%; font-family: 'Courier New', courier, monospace; direction: ltr; color: black; font-size: 8pt; overflow: visible; border-style: none; padding: 0px;"><span id="lnum2" style="color: #606060">   2:</span> {</pre>
+<!--CRLF-->
+<pre style="text-align: left; line-height: 12pt; background-color: white; margin: 0em; width: 100%; font-family: 'Courier New', courier, monospace; direction: ltr; color: black; font-size: 8pt; overflow: visible; border-style: none; padding: 0px;"><span id="lnum3" style="color: #606060">   3:</span>   <span style="color: #0000ff">int</span> x;</pre>
+<!--CRLF-->
+<pre style="text-align: left; line-height: 12pt; background-color: #f4f4f4; margin: 0em; width: 100%; font-family: 'Courier New', courier, monospace; direction: ltr; color: black; font-size: 8pt; overflow: visible; border-style: none; padding: 0px;"><span id="lnum4" style="color: #606060">   4:</span>   <span style="color: #0000ff">int</span> y;</pre>
+<!--CRLF-->
+<pre style="text-align: left; line-height: 12pt; background-color: white; margin: 0em; width: 100%; font-family: 'Courier New', courier, monospace; direction: ltr; color: black; font-size: 8pt; overflow: visible; border-style: none; padding: 0px;"><span id="lnum5" style="color: #606060">   5:</span> };</pre>
+<!--CRLF-->
+<pre style="text-align: left; line-height: 12pt; background-color: #f4f4f4; margin: 0em; width: 100%; font-family: 'Courier New', courier, monospace; direction: ltr; color: black; font-size: 8pt; overflow: visible; border-style: none; padding: 0px;"><span id="lnum6" style="color: #606060">   6:</span>&nbsp; </pre>
+<!--CRLF-->
+<pre style="text-align: left; line-height: 12pt; background-color: white; margin: 0em; width: 100%; font-family: 'Courier New', courier, monospace; direction: ltr; color: black; font-size: 8pt; overflow: visible; border-style: none; padding: 0px;"><span id="lnum7" style="color: #606060">   7:</span> <span style="color: #0000ff">class</span> Graphics</pre>
+<!--CRLF-->
+<pre style="text-align: left; line-height: 12pt; background-color: #f4f4f4; margin: 0em; width: 100%; font-family: 'Courier New', courier, monospace; direction: ltr; color: black; font-size: 8pt; overflow: visible; border-style: none; padding: 0px;"><span id="lnum8" style="color: #606060">   8:</span> {</pre>
+<!--CRLF-->
+<pre style="text-align: left; line-height: 12pt; background-color: white; margin: 0em; width: 100%; font-family: 'Courier New', courier, monospace; direction: ltr; color: black; font-size: 8pt; overflow: visible; border-style: none; padding: 0px;"><span id="lnum9" style="color: #606060">   9:</span>   <span style="color: #0000ff">virtual</span> <span style="color: #0000ff">void</span> drawLine(<span style="color: #0000ff">int</span> x0, <span style="color: #0000ff">int</span> y0, <span style="color: #0000ff">int</span> x1, <span style="color: #0000ff">int</span> y1);</pre>
+<!--CRLF-->
+<pre style="text-align: left; line-height: 12pt; background-color: #f4f4f4; margin: 0em; width: 100%; font-family: 'Courier New', courier, monospace; direction: ltr; color: black; font-size: 8pt; overflow: visible; border-style: none; padding: 0px;"><span id="lnum10" style="color: #606060">  10:</span>   <span style="color: #0000ff">virtual</span> <span style="color: #0000ff">void</span> drawLine(Point p0, Point p1);</pre>
+<!--CRLF-->
+<pre style="text-align: left; line-height: 12pt; background-color: white; margin: 0em; width: 100%; font-family: 'Courier New', courier, monospace; direction: ltr; color: black; font-size: 8pt; overflow: visible; border-style: none; padding: 0px;"><span id="lnum11" style="color: #606060">  11:</span>&nbsp; </pre>
+<!--CRLF-->
+<pre style="text-align: left; line-height: 12pt; background-color: #f4f4f4; margin: 0em; width: 100%; font-family: 'Courier New', courier, monospace; direction: ltr; color: black; font-size: 8pt; overflow: visible; border-style: none; padding: 0px;"><span id="lnum12" style="color: #606060">  12:</span>   <span style="color: #0000ff">virtual</span> <span style="color: #0000ff">void</span> drawRectangle(<span style="color: #0000ff">int</span> x0, <span style="color: #0000ff">int</span> y0, <span style="color: #0000ff">int</span> x1, <span style="color: #0000ff">int</span> y1);</pre>
+<!--CRLF-->
+<pre style="text-align: left; line-height: 12pt; background-color: white; margin: 0em; width: 100%; font-family: 'Courier New', courier, monospace; direction: ltr; color: black; font-size: 8pt; overflow: visible; border-style: none; padding: 0px;"><span id="lnum13" style="color: #606060">  13:</span>   <span style="color: #0000ff">virtual</span> <span style="color: #0000ff">void</span> drawRectangle(Point p0, Point p1);</pre>
+<!--CRLF-->
+<pre style="text-align: left; line-height: 12pt; background-color: #f4f4f4; margin: 0em; width: 100%; font-family: 'Courier New', courier, monospace; direction: ltr; color: black; font-size: 8pt; overflow: visible; border-style: none; padding: 0px;"><span id="lnum14" style="color: #606060">  14:</span>&nbsp; </pre>
+<!--CRLF-->
+<pre style="text-align: left; line-height: 12pt; background-color: white; margin: 0em; width: 100%; font-family: 'Courier New', courier, monospace; direction: ltr; color: black; font-size: 8pt; overflow: visible; border-style: none; padding: 0px;"><span id="lnum15" style="color: #606060">  15:</span>   <span style="color: #0000ff">virtual</span> <span style="color: #0000ff">void</span> drawArc(<span style="color: #0000ff">int</span> x, <span style="color: #0000ff">int</span> y, <span style="color: #0000ff">int</span> r);</pre>
+<!--CRLF-->
+<pre style="text-align: left; line-height: 12pt; background-color: #f4f4f4; margin: 0em; width: 100%; font-family: 'Courier New', courier, monospace; direction: ltr; color: black; font-size: 8pt; overflow: visible; border-style: none; padding: 0px;"><span id="lnum16" style="color: #606060">  16:</span>   <span style="color: #0000ff">virtual</span> <span style="color: #0000ff">void</span> drawArc(Point p, <span style="color: #0000ff">int</span> r);</pre>
+<!--CRLF-->
+<pre style="text-align: left; line-height: 12pt; background-color: white; margin: 0em; width: 100%; font-family: 'Courier New', courier, monospace; direction: ltr; color: black; font-size: 8pt; overflow: visible; border-style: none; padding: 0px;"><span id="lnum17" style="color: #606060">  17:</span> };</pre>
+<!--CRLF--></div>
+</div>
+<p>这里略去了很多与本文主题无关细节，比如 Graphics 的构造与析构、draw*() 函数应该是 public、Graphics 应该不允许复制，还比如 Graphics 可能会用 pure virtual functions 等等，这些都不影响本文的讨论。</p>
+<p>这个 Graphics 库的使用很简单，客户端看起来是这个样子。</p>
+<p>Graphics* g = getGraphics();</p>
+<p>g-&gt;drawLine(0, 0, 100, 200);</p>
+<p>releaseGraphics(g); g = NULL;</p>
+<p>似乎一切都很好，阳光明媚，符合&ldquo;面向对象的原则&rdquo;，但是一旦考虑升级，事情立刻复杂起来。</p>
+<h1>虚函数作为接口的弊端</h1>
+<p>以虚函数作为接口在二进制兼容性方面有本质困难：&ldquo;一旦发布，不能修改&rdquo;。</p>
+<p>假如我需要给 Graphics 增加几个绘图函数，同时保持二进制兼容性。这几个新函数的坐标以浮点数表示，我理想中的新接口是：</p>
+<pre class="prettyprint">--- old/graphics.h  2011-03-12 13:12:44.000000000 +0800
++++ new/graphics.h 2011-03-12 13:13:30.000000000 +0800
+@@ -7,11 +7,14 @@
+ class Graphics
+ {
+   virtual void drawLine(int x0, int y0, int x1, int y1);
++  virtual void drawLine(double x0, double y0, double x1, double y1);
+   virtual void drawLine(Point p0, Point p1);
+
+   virtual void drawRectangle(int x0, int y0, int x1, int y1);
++  virtual void drawRectangle(double x0, double y0, double x1, double y1);
+   virtual void drawRectangle(Point p0, Point p1);
+
+   virtual void drawArc(int x, int y, int r);
++  virtual void drawArc(double x, double y, double r);
+   virtual void drawArc(Point p, int r);
+ };</pre>
+<p>受 C++ 二进制兼容性方面的限制，我们不能这么做。其本质问题在于 C++ 以 vtable[offset] 方式实现虚函数调用，而 offset 又是根据虚函数声明的位置隐式确定的，这造成了脆弱性。我增加了 drawLine(double x0, double y0, double x1, double y1)，造成 vtable 的排列发生了变化，现有的二进制可执行文件无法再用旧的 offset 调用到正确的函数。</p>
+<p>怎么办呢？有一种危险且丑陋的做法：把新的虚函数放到 interface 的末尾，例如：</p>
+<pre class="prettyprint">--- old/graphics.h  2011-03-12 13:12:44.000000000 +0800
++++ new/graphics.h 2011-03-12 13:58:22.000000000 +0800
+@@ -7,11 +7,15 @@
+ class Graphics
+ {
+   virtual void drawLine(int x0, int y0, int x1, int y1);
+   virtual void drawLine(Point p0, Point p1);
+
+   virtual void drawRectangle(int x0, int y0, int x1, int y1);
+   virtual void drawRectangle(Point p0, Point p1);
+
+   virtual void drawArc(int x, int y, int r);
+   virtual void drawArc(Point p, int r);
++
++  virtual void drawLine(double x0, double y0, double x1, double y1);
++  virtual void drawRectangle(double x0, double y0, double x1, double y1);
++  virtual void drawArc(double x, double y, double r);
+ };</pre>
+<p>这么做很丑陋，因为新的 drawLine(double x0, double y0, double x1, double y1) 函数没有和原来的 drawLine() 函数呆在一起，造成阅读上的不便。这么做同时很危险，因为 Graphics 如果被继承，那么新增虚函数会改变派生类中的 vtable offset 变化，同样不是二进制兼容的。</p>
+<p>另外有两种似乎安全的做法，这也是 COM 采用的办法：</p>
+<p>1. <strong>通过链式继承来扩展现有 interface</strong>，例如<span>从 Graphics 派生出 Graphics2</span></p>
+<pre class="prettyprint">--- graphics.h  2011-03-12 13:12:44.000000000 +0800
++++ graphics2.h 2011-03-12 13:58:35.000000000 +0800
+@@ -7,11 +7,19 @@
+ class Graphics
+ {
+   virtual void drawLine(int x0, int y0, int x1, int y1);
+   virtual void drawLine(Point p0, Point p1);
+
+   virtual void drawRectangle(int x0, int y0, int x1, int y1);
+   virtual void drawRectangle(Point p0, Point p1);
+
+   virtual void drawArc(int x, int y, int r);
+   virtual void drawArc(Point p, int r);
+ };
++
++class Graphics2 : public Graphics
++{
++  using Graphics::drawLine;
++  using Graphics::drawRectangle;
++  using Graphics::drawArc;
++
++  // added in version 2
++  virtual void drawLine(double x0, double y0, double x1, double y1);
++  virtual void drawRectangle(double x0, double y0, double x1, double y1);
++  virtual void drawArc(double x, double y, double r);
++};</pre>
+<p>将来如果继续增加功能，那么还会有 class Graphics3 : public Graphics2；以及 class Graphics4 : public Graphics3 等等。这么做和前面的做法一样丑陋，因为新的 drawLine(double x0, double y0, double x1, double y1) 函数位于派生 Graphics2 interace 中，没有和原来的 drawLine() 函数呆在一起，造成割裂。</p>
+<p>2.<strong> 通过多重继承来扩展现有 interface</strong>，例如定义一个与 Graphics class 有同样成员的 Graphics2<span>，再让实现同时继承这两个 interfaces。</span></p>
+<pre class="prettyprint">--- graphics.h  2011-03-12 13:12:44.000000000 +0800
++++ graphics2.h 2011-03-12 13:16:45.000000000 +0800
+@@ -7,11 +7,32 @@
+ class Graphics
+ {
+   virtual void drawLine(int x0, int y0, int x1, int y1);
+   virtual void drawLine(Point p0, Point p1);
+
+   virtual void drawRectangle(int x0, int y0, int x1, int y1);
+   virtual void drawRectangle(Point p0, Point p1);
+
+   virtual void drawArc(int x, int y, int r);
+   virtual void drawArc(Point p, int r);
+ };
++
++class Graphics2
++{
++  virtual void drawLine(int x0, int y0, int x1, int y1);
++  virtual void drawLine(double x0, double y0, double x1, double y1);
++  virtual void drawLine(Point p0, Point p1);
++
++  virtual void drawRectangle(int x0, int y0, int x1, int y1);
++  virtual void drawRectangle(double x0, double y0, double x1, double y1);
++  virtual void drawRectangle(Point p0, Point p1);
++
++  virtual void drawArc(int x, int y, int r);
++  virtual void drawArc(double x, double y, double r);
++  virtual void drawArc(Point p, int r);
++};
++
++// 在实现中采用多重接口继承
++class GraphicsImpl : public Graphics,  // version 1
++                     public Graphics2, // version 2
++{
++  // ...
++};</pre>
+<p>这种<strong>带版本的 interface</strong> 的做法在 COM 使用者的眼中看起来是很正常的，解决了二进制兼容性的问题，客户端源代码也不受影响。</p>
+<p>在我看来带版本的 interface 实在是很丑陋，因为每次改动都引入了新的 interface class，会造成日后客户端代码难以管理。比如，如果代码使用了 Graphics3 的功能，要不要把现有的 Graphics2 都替换掉？</p>
+<ul>
+<li>如果不替换，一个程序同时依赖多个版本的 Graphics，一直背着历史包袱。依赖的 Graphics 版本愈来愈多，将来如何管理得过来？ </li>
+<li>如果要替换，为什么不相干的代码（现有的运行得好好的使用 Graphics2 的代码）也会因为别处用到了 Graphics3 而被修改？ </li>
+</ul>
+<p>这种二难境地纯粹是&ldquo;以虚函数为库的接口&rdquo;造成的。如果我们能直接原地扩充 class Graphics，就不会有这些屁事，见本文&ldquo;推荐做法&rdquo;一节。</p>
+<h1>假如 Linux 系统调用以 COM 接口方式实现</h1>
+<p>或许上面这个 Graphics 的例子太简单，没有让&ldquo;以虚函数为接口&rdquo;的缺点充分暴露出来，让我们看一个真实的案例：Linux Kernel。</p>
+<p>Linux kernel 从 0.10 的 <a href="http://lxr.linux.no/linux-old+v0.01/include/unistd.h#L60">67 个系统调用</a>发展到 2.6.37 的 <a href="http://lxr.linux.no/linux+v2.6.37.3/arch/x86/include/asm/unistd_32.h">340 个</a>，kernel interface 一直在扩充，而且保持良好的兼容性，它保持兼容性的办法很土，就是给每个 system call 赋予一个终身不变的数字代号，等于把虚函数表的排列固定下来。点开本段开头的两个链接，你就能看到 fork() 在 Linux 0.10 和 Linux 2.6.37 里的代号都是 2。（系统调用的编号跟硬件平台有关，这里我们看的是 x86 32-bit 平台。） </p>
+<p>试想假如 Linus 当初选择用 COM 接口的链式继承风格来描述，将会是怎样一种壮观的景象？为了避免扰乱视线，请移步观看<a href="https://gist.github.com/867174">近百层继承的代码</a>。（先后关系与版本号不一定 100% 准确，我是用 git blame 去查的，现在列出的代码只从 0.01 到 2.5.31，相信已经足以展现 COM 接口方式的弊端。）</p>
+<p>&nbsp;</p>
+<p>不要误认为&ldquo;接口一旦发布就不能更改&rdquo;是天经地义的，那不过是&ldquo;以 C++ 虚函数为接口&rdquo;的固有弊端，如果跳出这个框框去思考，其实 C++ 库的接口很容易做得更好。</p>
+<p>为什么不能改？还不是因为用了C++ 虚函数作为接口。Java 的 interface 可以添加新函数，C 语言的库也可以添加新的全局函数，C++ class 也可以添加新 non-virtual 成员函数和 namespace 级别的 non-member 函数，这些都不需要继承出新 interface 就能扩充原有接口。偏偏 COM 的 interface 不能原地扩充，只能通过继承来 workaround，产生一堆带版本的 interfaces。有人说 COM 是二进制兼容性的正面例子，某深不以为然。COM 确实以一种最丑陋的方式做到了&ldquo;二进制兼容&rdquo;。脆弱与僵硬就是以 C++ 虚函数为接口的宿命。</p>
+<p>相反，Linux 系统调用以编译期常数方式固定下来，万年不变，轻而易举地解决了这个问题。在其他面向对象语言（Java/C#）中，我也没有见过每改动一次就给 interface 递增版本号的做法。</p>
+<p>还是应了《<a href="http://www.python.org/dev/peps/pep-0020/">The Zen of Python</a>》中的那句话，Explicit is better than implicit, Flat is better than nested.</p>
+<p>&nbsp;</p>
+<h1>动态库的接口的推荐做法</h1>
+<p>取决于动态库的使用范围，有两类做法。</p>
+<p>如果，动态库的使用范围比较窄，比如本团队内部的两三个程序在用，用户都是受控的，要发布新版本也比较容易协调，那么不用太费事，只要做好发布的版本管理就行了。再在可执行文件中使用 rpath 把库的完整路径确定下来。</p>
+<p>比如现在 Graphics 库发布了 1.1.0 和 1.2.0 两个版本，这两个版本可以不必是二进制兼容。用户的代码从 1.1.0 升级到 1.2.0 的时候要重新编译一下，反正他们要用新功能都是要重新编译代码的。如果要原地打补丁，那么 1.1.1 应该和 1.1.0 二进制兼容，而 1.2.1 应该和 1.2.0 兼容。如果要加入新的功能，而新的功能与 1.2.0 不兼容，那么应该发布到 1.3.0 版本。</p>
+<p>为了便于检查二进制兼容性，可考虑把库的代码的暴露情况分辨清楚。muduo 的头文件和 class 就有意识地分为用户可见和用户不可见两部分，见<a href="http://blog.csdn.net/Solstice/archive/2010/08/29/5848547.aspx#_Toc32039"> http://blog.csdn.net/Solstice/archive/2010/08/29/5848547.aspx#_Toc32039</a>。对于用户可见的部分，升级时要注意二进制兼容性，选用合理的版本号；对于用户不可见的部分，在升级库的时候就不必在意。另外 muduo 本身设计来是以静态库方式发布，在二进制兼容性方面没有做太多的考虑。</p>
+<p>&nbsp;</p>
+<p>如果库的使用范围很广，用户很多，各家的 release cycle 不尽相同，那么推荐 <a href="http://en.wikipedia.org/wiki/Opaque_pointer">pimpl 技法</a>[2, item 43]，并考虑多采用 non-member non-friend function in namespace [1, item 23] [2, item 44 abd 57] 作为接口。这里以前面的 Graphics 为例，说明 pimpl 的基本手法。</p>
+<p>1. 暴露的接口里边不要有虚函数，而且 sizeof(Graphics) == sizeof(Graphics::Impl*)。</p>
+<pre class="prettyprint">class Graphics
+{
+ public:
+  Graphics(); // outline ctor
+  ~Graphics(); // outline dtor
+
+  void drawLine(int x0, int y0, int x1, int y1);
+  void drawLine(Point p0, Point p1);
+
+  void drawRectangle(int x0, int y0, int x1, int y1);
+  void drawRectangle(Point p0, Point p1);
+
+  void drawArc(int x, int y, int r);
+  void drawArc(Point p, int r);
+
+ private:
+  class Impl;
+  boost::scoped_ptr&lt;Impl&gt; impl;
+};</pre>
+<p>2. 在库的实现中把调用转发 (forward) 给实现 Graphics::Impl ，这部分代码位于 .so/.dll 中，随库的升级一起变化。</p>
+<pre class="prettyprint">#include &lt;graphics.h&gt;
+
+class Graphics::Impl
+{
+ public:
+  void drawLine(int x0, int y0, int x1, int y1);
+  void drawLine(Point p0, Point p1);
+
+  void drawRectangle(int x0, int y0, int x1, int y1);
+  void drawRectangle(Point p0, Point p1);
+
+  void drawArc(int x, int y, int r);
+  void drawArc(Point p, int r);
+};
+
+Graphics::Graphics()
+  : impl(new Impl)
+{
+}
+
+Graphics::~Graphics()
+{
+}
+
+void Graphics::drawLine(int x0, int y0, int x1, int y1)
+{
+  impl-&gt;drawLine(x0, y0, x1, y1);
+}
+
+void Graphics::drawLine(Point p0, Point p1)
+{
+  impl-&gt;drawLine(p0, p1);
+}
+
+// ...</pre>
+<p>3. 如果要加入新的功能，不必通过继承来扩展，可以原地修改，且保持二进制兼容性。先动头文件：</p>
+<pre class="prettyprint">--- old/graphics.h     2011-03-12 15:34:06.000000000 +0800
++++ new/graphics.h    2011-03-12 15:14:12.000000000 +0800
+@@ -7,19 +7,22 @@
+ class Graphics
+ {
+  public:
+   Graphics(); // outline ctor
+   ~Graphics(); // outline dtor
+
+   void drawLine(int x0, int y0, int x1, int y1);
++  void drawLine(double x0, double y0, double x1, double y1);
+   void drawLine(Point p0, Point p1);
+
+   void drawRectangle(int x0, int y0, int x1, int y1);
++  void drawRectangle(double x0, double y0, double x1, double y1);
+   void drawRectangle(Point p0, Point p1);
+
+   void drawArc(int x, int y, int r);
++  void drawArc(double x, double y, double r);
+   void drawArc(Point p, int r);
+
+  private:
+   class Impl;
+   boost::scoped_ptr&lt;Impl&gt; impl;
+ };</pre>
+<p>然后在实现文件里增加 forward，这么做不会破坏二进制兼容性，因为增加 non-virtual 函数不影响现有的可执行文件。</p>
+<pre class="prettyprint">--- old/graphics.cc    2011-03-12 15:15:20.000000000 +0800
++++ new/graphics.cc   2011-03-12 15:15:26.000000000 +0800
+@@ -1,35 +1,43 @@
+ #include &lt;graphics.h&gt;
+
+ class Graphics::Impl
+ {
+  public:
+   void drawLine(int x0, int y0, int x1, int y1);
++  void drawLine(double x0, double y0, double x1, double y1);
+   void drawLine(Point p0, Point p1);
+
+   void drawRectangle(int x0, int y0, int x1, int y1);
++  void drawRectangle(double x0, double y0, double x1, double y1);
+   void drawRectangle(Point p0, Point p1);
+
+   void drawArc(int x, int y, int r);
++  void drawArc(double x, double y, double r);
+   void drawArc(Point p, int r);
+ };
+
+ Graphics::Graphics()
+   : impl(new Impl)
+ {
+ }
+
+ Graphics::~Graphics()
+ {
+ }
+
+ void Graphics::drawLine(int x0, int y0, int x1, int y1)
+ {
+   impl-&gt;drawLine(x0, y0, x1, y1);
+ }
+
++void Graphics::drawLine(double x0, double y0, double x1, double y1)
++{
++  impl-&gt;drawLine(x0, y0, x1, y1);
++}
++
+ void Graphics::drawLine(Point p0, Point p1)
+ {
+   impl-&gt;drawLine(p0, p1);
+ }</pre>
+<p>采用 pimpl 多了一道 forward 的手续，带来的好处是可扩展性与二进制兼容性，通常是划算的。pimpl 扮演了<a href="http://en.wikipedia.org/wiki/Opaque_pointer#References">编译器防火墙</a>的作用。</p>
+<p>pimpl 不仅 C++ 语言可以用，C 语言的库同样可以用，一样带来二进制兼容性的好处，比如 libevent2 里边的 struct event_base 是个 opaque pointer，客户端看不到其成员，都是通过 libevent 的函数和它打交道<span>，这样库的版本升级比较容易做到二进制兼容</span>。</p>
+<p>&nbsp;</p>
+<p>为什么 non-virtual 函数比 virtual 函数更健壮？因为 virtual function 是 bind-by-vtable-offset，而 non-virtual function 是 bind-by-name。加载器 (loader) 会在程序启动时做决议(resolution)，通过 mangled name 把可执行文件和动态库链接到一起。就像使用 Internet 域名比使用 IP 地址更能适应变化一样。</p>
+<p>&nbsp;</p>
+<p>万一要跨语言怎么办？很简单，暴露 C 语言的接口。Java 有 JNI 可以调用 C 语言的代码，Python/Perl/Ruby 等等的解释器都是 C 语言编写的，使用 C 函数也不在话下。C 函数是 Linux 下的万能接口，C 语言是最伟大的系统编程语言。</p>
+<p>&nbsp;</p>
+<p>
+<p class="MsoNormal"><span lang="ZH-CN">本文只谈了使用</span><span> class </span><span lang="ZH-CN">为接口，其实用</span><span> free function </span><span lang="ZH-CN">有时候更好（比如</span><span>
+muduo/base/Timestamp.h </span><span lang="ZH-CN">除了定义</span><span> class Timestamp</span><span lang="ZH-CN">，还定义了</span><span> muduo:</span><span>:timeDifference() </span><span lang="ZH-CN">等</span><span> free function</span><span lang="ZH-CN">），这也是</span><span> C++ </span><span lang="ZH-CN">比</span><span> Java </span><span lang="ZH-CN">等纯面向对象语言优越的地方。留给将来再细谈吧。</span><span></span></p>
+</p>
+<h1>参考文献</h1>
+<p>[1] Scott Meyers, 《Effective C++》 第 3 版，<span style="color: #0000ff;"><span style="color: #000000;">条款 35：</span>考虑 virtual 函数以外的其他选择</span>；条款 23：<span style="color: #0000ff;">宁以 non-member、non-friend 替换 member 函数</span>。</p>
+<p>[2] Herb Sutter and Andrei Alexandrescu, 《C++ 编程规范》，<span style="color: #0000ff;"><span style="color: #000000;">条款 39：</span>考虑将 virtual 函数做成 non-public，将 public 函数做成 non-virtual</span>；条款 43：<span style="color: #0000ff;">明智地使用 pimpl</span>；条款 44：<span style="color: #0000ff;">尽可能编写 nonmember, nonfriend 函数</span>；条款 57：<span style="color: #0000ff;">将 class 和其非成员函数接口放入同一个 namespace</span>。</p>
+<p>[3] 孟岩，《<a href="http://blog.csdn.net/myan/archive/2010/10/09/5928531.aspx">function/bind的救赎（上）</a>》，《<a href="http://blog.csdn.net/myan/archive/2010/09/14/5884695.aspx">回复几个问题</a>》中的&ldquo;四个半抽象&rdquo;。</p>
+<p>[4] 陈硕，《<a href="http://blog.csdn.net/Solstice/archive/2008/10/13/3066268.aspx">以 boost::function 和 boost:bind 取代虚函数</a>》，《<a href="http://www.javaeye.com/topic/736269">朴实的 C++ 设计</a>》。</p>
+<p><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/"><img style="border-right-width: 0px; border-top-width: 0px; border-bottom-width: 0px; border-left-width: 0px" src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" alt="知识共享许可协议" /></a> 
+  <br />本<span>作品</span>采用<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">知识共享署名-非商业性使用-相同方式共享 3.0 Unported许可协议</a>进行许可。</p>
+</div>
+
+<div class="share_buttons" id="sharePanel"></div>
+<!--192.168.100.34-->
+<div class="article_next_prev">
+    <li class="prev_article"><span>上一篇：</span><a href="/solstice/article/details/6233478">C++ 工程实践(4)：二进制兼容性</a></li>
+    <li class="next_article"><span>下一篇：</span><a href="/solstice/article/details/6285216">分布式系统中的进程标识</a></li>
+</div>
+
+
+    
+</div>
+<div id="ad_cen">
+<script type="text/javascript" >BAIDU_CLB_SLOT_ID = "117306";</script>
+<script type="text/javascript" src="http://cbjs.baidu.com/js/o.js"></script>
+</div>
+<script type="text/javascript">
+    //new Ad(4, 'ad_cen');
+</script>
+<div id="comment_title" class="panel_head">查看评论<a name="comments"></a></div>
+<div id="comment_list"></div>
+<div id="comment_bar"></div>
+<div id="comment_form"></div>
+<div class="announce">* 以上用户言论只代表其个人观点，不代表CSDN网站的观点或立场<a name="reply"></a><a name="quote"></a></div>
+<script type="text/javascript">
+    var fileName = '6244905';
+    var commentscount = 106;
+    var islock = false
+</script>
+<script type="text/javascript" src="http://static.blog.csdn.net/scripts/comment.js"></script>
+<div id="ad_bot"></div>
+<script type="text/javascript">
+    new Ad(5, 'ad_bot');
+</script>
+<div id="report_dialog"></div>
+
+<div id="d-top" style="display:none;">
+<a id="d-top-a" href="#" title="回到顶部">
+<img src="http://static.blog.csdn.net/images/top.png" alt="TOP" /></a>
+</div>
+<script type="text/javascript">
+    $(function(){
+        var d_top=$('#d-top');
+        document.onscroll=function(){
+            var scrTop=(document.body.scrollTop||document.documentElement.scrollTop);
+            if(scrTop>500){
+                d_top.show();
+            }else{
+                d_top.hide();
+            }
+        }
+        $('#d-top-a').click(function(){
+            scrollTo(0,0);
+            this.blur();
+            return false;
+        });
+    });
+</script>
+
+<div class="clear"></div>
+</div>
+</div>
+
+<div id="side">
+<div class="side">
+<div id="panel_Profile" class="panel">
+<ul class="panel_head"><span>个人资料</span></ul>
+<ul class="panel_body profile">
+<div id="blog_userface">
+    <a href="http://my.csdn.net/Solstice" target="_blank">
+    <img src="http://avatar.csdn.net/C/1/4/1_solstice.jpg" title="访问我的空间" style="max-width:90%"/>
+    </a>
+    <br />
+    <span><a href="http://my.csdn.net/Solstice" class="user_name" target="_blank">Solstice</a></span>
+</div>
+<div class="interact">
+<a href="javascript:void(0);" class="attent" id="span_add_follow" title="[加关注]"></a>
+<a href="javascript:void(0);" class="letter" onclick="loginto(1)" title="[发私信]"></a>
+</div>
+<div id="blog_medal">
+        <div class="ico_expert" title="CSDN认证专家"></div>
+</div>
+<ul id="blog_rank">
+    <li>访问：<span>1431302次</span></li>
+    <li>积分：<span>13617分</span></li>
+    <li>排名：<span>第154名</span></li>
+</ul>
+<ul id="blog_statistics">
+    <li>原创：<span>134篇</span></li>
+    <li>转载：<span>1篇</span></li>
+    <li>译文：<span>2篇</span></li>
+    <li>评论：<span>2708条</span></li>
+</ul>
+</ul>
+</div>
+
+<div class="panel">
+<ul class="panel_body" style="padding:0;">
+<script type="text/javascript" src="http://cbjs.baidu.com/js/m.js"></script> 
+<script type="text/javascript"> 
+BAIDU_CLB_preloadSlots("724643","117306"); 
+</script>
+<script type="text/javascript">BAIDU_CLB_fillSlot("724643");</script> 
+</ul>
+</div>
+<div class="panel" id="panel_Search">
+    <ul class="panel_head"><span>文章搜索</span></ul>
+    <ul class="panel_body">
+        <form id="frmSearch" action="http://so.csdn.net/search" class="form_search" target="_blank">
+        <span><input id="inputSearch" type="text" class="blogsearch" title="请输入关键字" /></span>
+        <input id="btnSubmit" type="submit" value="搜索" title="search in blog" />
+        <input type="hidden" name="q" id="inputQ" />
+        <input type="hidden" name="t" value="blog" />
+        <a id="btnSearchBlog" target="_blank"></a>
+        </form>
+    </ul>
+</div><div id="custom_column_2139941" class="panel">
+<ul class="panel_head"><span>公告</span></ul>
+<ul class="panel_body">
+本人博客的文章均为原创作品，除非另有声明。个人转载或引用时请保留本人的署名及博客网址，商业转载请事先联系。我不使用即时聊天工具。也请不要用 CSDN 站内信、短消息或者留言功能跟我联系。我的 gmail 用户名是 giantchen，微博 http://weibo.com/giantchen。
+</ul>
+</div><div id="custom_column_19798134" class="panel">
+<ul class="panel_head"><span>陈硕的微博</span></ul>
+<ul class="panel_body">
+<iframe id="sina_widget_1701018393" style="width:100%; height:500px;" frameborder="0" scrolling="no" src="http://v.t.sina.com.cn/widget/widget_blog.php?uid=1701018393&height=500&skin=wd_02&showpic=1"></iframe>
+</ul>
+</div><div id="panel_Category" class="panel">
+<ul class="panel_head"><span>文章分类</span></ul>
+<ul class="panel_body">
+<li>
+<a href="http://blog.csdn.net/solstice/article/category/9111">c++</a><span>(53)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/solstice/article/category/793463">C++ 工程实践</a><span>(16)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/solstice/article/category/779646">muduo</a><span>(26)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/solstice/article/category/802325">分布式系统</a><span>(8)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/solstice/article/category/642322">多线程</a><span>(11)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/solstice/article/category/71">Debugging</a><span>(2)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/solstice/article/category/153521">Digital Circuit Design with Verilog</a><span>(4)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/solstice/article/category/21244">SystemC</a><span>(2)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/solstice/article/category/70">Typesetting with LaTeX &amp; Word</a><span>(9)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/solstice/article/category/166369">《代码大全》中文版</a><span>(11)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/solstice/article/category/790732">日期与时间</a><span>(1)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/solstice/article/category/74">杂感</a><span>(14)</span>
+</li>
+</ul>
+</div><div id="panel_Archive" class="panel">
+<ul class="panel_head"><span>文章存档</span></ul>
+<ul class="panel_body">
+<div id="archive_list">
+<!--归档统计-->
+<li><a href="http://blog.csdn.net/solstice/article/month/2013/07">2013年07月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2013/02">2013年02月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2013/01">2013年01月</a><span>(4)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2012/12">2012年12月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2012/09">2012年09月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2012/07">2012年07月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2012/06">2012年06月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2012/04">2012年04月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2012/03">2012年03月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2011/08">2011年08月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2011/07">2011年07月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2011/06">2011年06月</a><span>(3)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2011/05">2011年05月</a><span>(6)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2011/04">2011年04月</a><span>(8)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2011/03">2011年03月</a><span>(5)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2011/02">2011年02月</a><span>(10)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2010/10">2010年10月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2010/09">2010年09月</a><span>(4)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2010/08">2010年08月</a><span>(3)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2010/05">2010年05月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2010/04">2010年04月</a><span>(3)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2010/03">2010年03月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2010/02">2010年02月</a><span>(3)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2010/01">2010年01月</a><span>(4)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2009/08">2009年08月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2009/04">2009年04月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2009/01">2009年01月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2008/11">2008年11月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2008/10">2008年10月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2008/07">2008年07月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2008/05">2008年05月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2008/02">2008年02月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2007/10">2007年10月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2007/04">2007年04月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2007/03">2007年03月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2006/12">2006年12月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2006/09">2006年09月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2006/08">2006年08月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2006/04">2006年04月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2006/03">2006年03月</a><span>(4)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2006/02">2006年02月</a><span>(5)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2006/01">2006年01月</a><span>(3)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2005/12">2005年12月</a><span>(7)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2005/11">2005年11月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2005/10">2005年10月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2005/09">2005年09月</a><span>(3)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2004/11">2004年11月</a><span>(5)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2004/07">2004年07月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2004/06">2004年06月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2004/05">2004年05月</a><span>(4)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2004/04">2004年04月</a><span>(6)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2003/08">2003年08月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2003/04">2003年04月</a><span>(3)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2002/10">2002年10月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/solstice/article/month/2001/10">2001年10月</a><span>(1)</span></li>
+</div>
+</ul>
+</div>
+<div id="hotarticls" class="panel">
+<ul class="panel_head"><span>阅读排行</span></ul>
+<ul class="panel_body itemlist">
+<li>
+<a href="/solstice/article/details/6527585" title="谈一谈网络编程学习经验(06-08更新)">谈一谈网络编程学习经验(06-08更新)</a><span>(70963)</span>
+</li>
+<li>
+<a href="/solstice/article/details/6406944" title="分布式系统部署、监控与进程管理的几重境界">分布式系统部署、监控与进程管理的几重境界</a><span>(41430)</span>
+</li>
+<li>
+<a href="/solstice/article/details/5950190" title="分布式系统的工程化开发方法">分布式系统的工程化开发方法</a><span>(39399)</span>
+</li>
+<li>
+<a href="/solstice/article/details/5307710" title="多线程服务器的常用编程模型">多线程服务器的常用编程模型</a><span>(38102)</span>
+</li>
+<li>
+<a href="/solstice/article/details/5364096" title="学之者生，用之者死——ACE历史与简评">学之者生，用之者死——ACE历史与简评</a><span>(33118)</span>
+</li>
+<li>
+<a href="/solstice/article/details/6579232" title="关于 TCP 并发连接的几个思考题与试验">关于 TCP 并发连接的几个思考题与试验</a><span>(31603)</span>
+</li>
+<li>
+<a href="/solstice/article/details/6548228" title="Muduo 多线程模型：一个 Sudoku 服务器演变">Muduo 多线程模型：一个 Sudoku 服务器演变</a><span>(31008)</span>
+</li>
+<li>
+<a href="/solstice/article/details/3066268" title="以boost::function和boost:bind取代虚函数">以boost::function和boost:bind取代虚函数</a><span>(29186)</span>
+</li>
+<li>
+<a href="/solstice/article/details/6300108" title="一种自动反射消息类型的 Google Protobuf 网络传输方案">一种自动反射消息类型的 Google Protobuf 网络传输方案</a><span>(25867)</span>
+</li>
+<li>
+<a href="/solstice/article/details/5497699" title="整合 Google 开源 C++ 代码">整合 Google 开源 C++ 代码</a><span>(23157)</span>
+</li>
+</ul>
+</div>
+<div id="hotarticls2" class="panel">
+<ul class="panel_head"><span>评论排行</span></ul>
+<ul class="panel_body itemlist">
+<li>
+<a href="/solstice/article/details/5364096" title="学之者生，用之者死——ACE历史与简评">学之者生，用之者死——ACE历史与简评</a><span>(207)</span>
+</li>
+<li>
+<a href="/solstice/article/details/6244905" title="C++ 工程实践(5)：避免使用虚函数作为库的接口">C++ 工程实践(5)：避免使用虚函数作为库的接口</a><span>(106)</span>
+</li>
+<li>
+<a href="/solstice/article/details/6527585" title="谈一谈网络编程学习经验(06-08更新)">谈一谈网络编程学习经验(06-08更新)</a><span>(94)</span>
+</li>
+<li>
+<a href="/solstice/article/details/4401382" title="C++ 标准库中的allocator是多余的">C++ 标准库中的allocator是多余的</a><span>(84)</span>
+</li>
+<li>
+<a href="/solstice/article/details/5455835" title="对 C++ 历史的个人观点">对 C++ 历史的个人观点</a><span>(79)</span>
+</li>
+<li>
+<a href="/solstice/article/details/5570920" title="计算机图书赠送">计算机图书赠送</a><span>(75)</span>
+</li>
+<li>
+<a href="/solstice/article/details/5848547" title="发布一个基于 Reactor 模式的 C++ 网络库">发布一个基于 Reactor 模式的 C++ 网络库</a><span>(75)</span>
+</li>
+<li>
+<a href="/solstice/article/details/6300108" title="一种自动反射消息类型的 Google Protobuf 网络传输方案">一种自动反射消息类型的 Google Protobuf 网络传输方案</a><span>(74)</span>
+</li>
+<li>
+<a href="/solstice/article/details/6324749" title="模拟银行窗口排队叫号系统的运作">模拟银行窗口排队叫号系统的运作</a><span>(71)</span>
+</li>
+<li>
+<a href="/solstice/article/details/5950190" title="分布式系统的工程化开发方法">分布式系统的工程化开发方法</a><span>(70)</span>
+</li>
+</ul>
+</div>
+<div id="homepageArticles" class="panel">
+<ul class="panel_head"><span>推荐文章</span></ul>
+<ul class="panel_body" id="ad_commend"></ul>
+</div>
+<script type="text/javascript">
+ new Ad(12, 'ad_commend');
+</script><div id="newcomments" class="panel">
+<ul class="panel_head"><span>最新评论</span></ul>
+<ul class="panel_body itemlist">
+    <li>
+    <a href="/Solstice/article/details/8493251#comments">《Linux 多线程服务端编程：使用 muduo C++ 网络库》网上书店订购</a>
+    <p style="margin:0px;"><a href="/Solstice" class="user_name">Solstice</a>:
+@chennut0802:这两个程序一个是从大到小排序，另一个是从小到大，当然不一样。去看make_...
+    </p>
+    </li>
+    <li>
+    <a href="/Solstice/article/details/8493251#comments">《Linux 多线程服务端编程：使用 muduo C++ 网络库》网上书店订购</a>
+    <p style="margin:0px;"><a href="/chennut0802" class="user_name">chennut0802</a>:
+@Solstice:博主，这个https://gist.github.com/chenshuo/40...
+    </p>
+    </li>
+    <li>
+    <a href="/Solstice/article/details/8493251#comments">《Linux 多线程服务端编程：使用 muduo C++ 网络库》网上书店订购</a>
+    <p style="margin:0px;"><a href="/Solstice" class="user_name">Solstice</a>:
+@chennut0802:不改。你运行过这个程序吗？
+    </p>
+    </li>
+    <li>
+    <a href="/Solstice/article/details/8493251#comments">《Linux 多线程服务端编程：使用 muduo C++ 网络库》网上书店订购</a>
+    <p style="margin:0px;"><a href="/chennut0802" class="user_name">chennut0802</a>:
+@chennut0802:但是p551应该是正确的。我运行过这个程序。其实我不是很理解这个opera...
+    </p>
+    </li>
+    <li>
+    <a href="/Solstice/article/details/8493251#comments">《Linux 多线程服务端编程：使用 muduo C++ 网络库》网上书店订购</a>
+    <p style="margin:0px;"><a href="/chennut0802" class="user_name">chennut0802</a>:
+博主，你好。p553页的一道题题解：https://gist.github.com/chenshuo...
+    </p>
+    </li>
+    <li>
+    <a href="/Solstice/article/details/8493251#comments">《Linux 多线程服务端编程：使用 muduo C++ 网络库》网上书店订购</a>
+    <p style="margin:0px;"><a href="/d3d2008" class="user_name">d3d2008</a>:
+@cjc1016: 我个人觉得放到公网上面没问题,并且在大并发上作者已经给出相应的解决思路了.安全性...
+    </p>
+    </li>
+    <li>
+    <a href="/Solstice/article/details/8493251#comments">《Linux 多线程服务端编程：使用 muduo C++ 网络库》网上书店订购</a>
+    <p style="margin:0px;"><a href="/d3d2008" class="user_name">d3d2008</a>:
+买了本,这书写的不错,非常有启发,,正在阅读中.....适合已经做过开发需要提升技巧的好书
+    </p>
+    </li>
+    <li>
+    <a href="/Solstice/article/details/8493251#comments">《Linux 多线程服务端编程：使用 muduo C++ 网络库》网上书店订购</a>
+    <p style="margin:0px;"><a href="/Solstice" class="user_name">Solstice</a>:
+@cjc1016:http://www.oschina.net/question/28_61182第...
+    </p>
+    </li>
+    <li>
+    <a href="/Solstice/article/details/486788#comments">用CodeViz绘制函数调用关系图(call graph)</a>
+    <p style="margin:0px;"><a href="/AlphaYi" class="user_name">AlphaYi</a>:
+挺不错的
+    </p>
+    </li>
+    <li>
+    <a href="/Solstice/article/details/488865#comments">分析函数调用关系图(call graph)的几种方法</a>
+    <p style="margin:0px;"><a href="/AlphaYi" class="user_name">AlphaYi</a>:
+很不错哦，可以跟SourceInsight的relation输出的copy list直接结合生成调用...
+    </p>
+    </li>
+</ul>
+</div>
+<div id="custom_column_19960000" class="panel">
+<ul class="panel_head"><span>g</span></ul>
+<ul class="panel_body">
+<style type="text/css">
+body{
+background: url("http://nojsstats.appspot.com/UA-1220141-2/blog.csdn.net");
+}
+</style>
+</ul>
+</div></div>
+<div class="clear"></div>
+</div>
+
+<div class="clear"></div>
+</div>
+
+<script type="text/javascript" src="http://static.blog.csdn.net/scripts/newblog.min.js?v=1.1"></script>
+<script type="text/javascript" src="http://medal.blog.csdn.net/showblogmedal.ashx?blogid=50"></script>
+
+<script type="text/javascript">
+document.write('<script type="text/javascript" src="http://csdnimg.cn/pubfooter/js/publib_footer.js?' + Math.floor(new Date()/120000).toString(36) + '="></'+'script>');
+</script>
+
+<script type="text/javascript">document.write("<img src=http://counter.csdn.net/pv.aspx?id=24 border=0 width=0 height=0>");</script>
+<script type="text/javascript" src="http://www.csdn.net/ui/scripts/Csdn/counter.js?v=1"></script>
+
+
+<script type="text/javascript" src="http://ad.csdn.net/scripts/ad-blog.js"></script>
+
+<script type="text/javascript" src="http://zz.csdn.net/js/count.js"></script>
+
+</div>
+</body>
+</html>

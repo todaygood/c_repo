@@ -1,0 +1,1 @@
+cmd_/mnt/Pub/code_respo/kprobes/kprobe_example.ko := ld -r -m elf_x86_64 -T /usr/src/linux-2.6.32.12-0.7/scripts/module-common.lds --build-id -o /mnt/Pub/code_respo/kprobes/kprobe_example.ko /mnt/Pub/code_respo/kprobes/kprobe_example.o /mnt/Pub/code_respo/kprobes/kprobe_example.mod.o

@@ -1,0 +1,91 @@
+test_case_general_protection.txt
+
+./gen_fault -g
+
+测试结果：
+
+     KERNEL: /boot/vmlinux-2.6.32.59-0.7-default.gz
+   DEBUGINFO: vmlinux-2.6.32.59-0.7-default.debug
+    DUMPFILE: 2013-11-24-17:36/vmcore  [PARTIAL DUMP]
+        CPUS: 2
+        DATE: Sun Nov 24 17:36:00 2013
+      UPTIME: 00:28:36
+LOAD AVERAGE: 0.91, 0.38, 0.14
+       TASKS: 184
+    NODENAME: sles11sp1
+     RELEASE: 2.6.32.59-0.7-default
+     VERSION: #1 SMP 2012-07-13 15:50:56 +0200
+     MACHINE: x86_64  (2793 Mhz)
+      MEMORY: 3.9 GB
+       PANIC: "[ 1716.644524] Oops: 0011 [#1] SMP " (check log for details)
+         PID: 4905
+     COMMAND: "gen_fault"
+        TASK: ffff880135ea41c0  [THREAD_INFO: ffff88013761c000]
+         CPU: 0
+       STATE: TASK_RUNNING (PANIC)
+
+crash> bt
+PID: 4905   TASK: ffff880135ea41c0  CPU: 0   COMMAND: "gen_fault"
+ #0 [ffff88013761dc20] machine_kexec at ffffffff81020ad2
+ #1 [ffff88013761dc70] crash_kexec at ffffffff81088920
+ #2 [ffff88013761dd40] oops_end at ffffffff8139f8c0
+ #3 [ffff88013761dd60] __bad_area_nosemaphore at ffffffff8102ed15
+ #4 [ffff88013761dd70] sprintf at ffffffff811e9ec3
+ #5 [ffff88013761dde0] do_page_fault at ffffffff813a1301
+ #6 [ffff88013761de20] page_fault at ffffffff8139eb3f
+ #7 [ffff88013761ded0] mf_ioctl at ffffffffa0153177
+ #8 [ffff88013761def0] vfs_ioctl at ffffffff8110f06f
+ #9 [ffff88013761df10] do_vfs_ioctl at ffffffff8110f4fb
+#10 [ffff88013761df40] sys_ioctl at ffffffff8110f611
+#11 [ffff88013761df80] system_call_fastpath at ffffffff81002f7b
+    RIP: 00007fd60cb9abd7  RSP: 00007fff59858d98  RFLAGS: 00010202
+    RAX: 0000000000000010  RBX: ffffffff81002f7b  RCX: 0000000000000000
+    RDX: 0000000000000000  RSI: 000000000000f506  RDI: 0000000000000003
+    RBP: 0000000000000000   R8: 0000000000000000   R9: 0000000000000000
+    R10: 0000000000000000  R11: 0000000000000202  R12: 00007fff59858eb0
+    R13: 0000000000400620  R14: 00007fff59858de0  R15: 0000000000400990
+    ORIG_RAX: 0000000000000010  CS: 0033  SS: 002b
+
+
+
+
+[ 1716.644507] kernel tried to execute NX-protected page - exploit attempt? (uid: 0)
+[ 1716.644511] BUG: unable to handle kernel paging request at ffff88013761deec
+[ 1716.644514] IP: [<ffff88013761deec>] 0xffff88013761deec
+[ 1716.644521] PGD 1805063 PUD a067 PMD 80000001376001e3
+[ 1716.644524] Oops: 0011 [#1] SMP
+[ 1716.644527] last sysfs file: /sys/devices/system/cpu/cpu1/cache/index2/shared_cpu_map
+[ 1716.644530] CPU 0
+[ 1716.644532] Modules linked in: make_fault(N) ipv6 bridge stp llc cpufreq_conservative cpufreq_userspace cpufreq_powersave acpi_cpufreq fuse loop dm_mod arc4 ecb iwlagn iwlcore pcmcia snd_hda_codec_conexant mac80211 uvcvideo btusb iTCO_wdt videodev yenta_socket cfg80211 bluetooth snd_hda_intel thinkpad_acpi v4l1_compat rsrc_nonstatic snd_hda_codec i2c_i801 ohci1394 v4l2_compat_ioctl32 ieee1394 video rfkill sg rtc_cmos sr_mod rtc_core output iTCO_vendor_support pcmcia_core wmi pcspkr button battery ac i2c_core joydev rtc_lib led_class snd_hwdep snd_pcm snd_timer snd soundcore e1000e tpm_tis tpm tpm_bios snd_page_alloc cdrom intel_agp uhci_hcd sd_mod crc_t10dif ehci_hcd usbcore edd ext3 mbcache jbd fan processor ahci libata scsi_mod thermal thermal_sys hwmon
+[ 1716.644572] Supported: Yes
+[ 1716.644575] Pid: 4905, comm: gen_fault Tainted: G          N  2.6.32.59-0.7-default #1 2767MZ5
+[ 1716.644578] RIP: 0010:[<ffff88013761deec>]  [<ffff88013761deec>] 0xffff88013761deec
+[ 1716.644581] RSP: 0018:ffff88013761ded0  EFLAGS: 00010246
+[ 1716.644583] RAX: 0000000000000000 RBX: ffff8801360b0380 RCX: 00000000000032b0
+[ 1716.644586] RDX: ffff88013761deec RSI: 0000000000000046 RDI: ffffffff81a74a10
+[ 1716.644588] RBP: 0000000000000000 R08: 0000000000000000 R09: 000000000000000a
+[ 1716.644590] R10: 0000000000000000 R11: 0000000000000000 R12: 000000000000f506
+[ 1716.644592] R13: 0000000000000003 R14: 000000000000f506 R15: 0000000000000000
+[ 1716.644595] FS:  00007fd60d03a700(0000) GS:ffff88000d800000(0000) knlGS:0000000000000000
+[ 1716.644597] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[ 1716.644600] CR2: ffff88013761deec CR3: 0000000136e8b000 CR4: 00000000000406f0
+[ 1716.644602] DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
+[ 1716.644604] DR3: 0000000000000000 DR6: 00000000ffff0ff0 DR7: 0000000000000400
+[ 1716.644607] Process gen_fault (pid: 4905, threadinfo ffff88013761c000, task ffff880135ea41c0)
+[ 1716.644609] Stack:
+[ 1716.644610]  ffffffffa0153177 ffff8801360b0380 ffff880135ae0928 123456780cb9abd0
+[ 1716.644613] <0> ffffffff8110f06f ffff8801360b0380 0000000000000000 0000000000000000
+[ 1716.644616] <0> ffffffff8110f4fb ffff880136bb50a0 0000000000000000 0000000000000000
+[ 1716.644620] Call Trace:
+[ 1716.644631] Inexact backtrace:
+[ 1716.644632]
+[ 1716.644635]  [<ffffffffa0153177>] ? mf_ioctl+0x57/0x104 [make_fault]
+[ 1716.644643]  [<ffffffff8110f06f>] ? vfs_ioctl+0x2f/0xb0
+[ 1716.644647]  [<ffffffff8110f4fb>] ? do_vfs_ioctl+0x36b/0x3e0
+[ 1716.644650]  [<ffffffff8110f611>] ? sys_ioctl+0xa1/0xb0
+[ 1716.644655]  [<ffffffff81002f7b>] ? system_call_fastpath+0x16/0x1b
+[ 1716.644657] Code: de 61 37 01 88 ff ff 18 00 00 00 00 00 00 00 77 31 15 a0 ff ff ff ff 80 03 0b 36 01 88 ff ff 28 09 ae 35 01 88 ff ff d0 ab b9 0c <78> 56 34 12 6f f0 10 81 ff ff ff ff 80 03 0b 36 01 88 ff ff 00
+[ 1716.644681] RIP  [<ffff88013761deec>] 0xffff88013761deec
+[ 1716.644685]  RSP <ffff88013761ded0>
+[ 1716.644687] CR2: ffff88013761deec
+~                                                         

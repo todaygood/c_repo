@@ -1,0 +1,1 @@
+cmd_/mnt/Pub/fault_inject/print_var/print_var.ko := ld -m elf_x86_64 -r -o /mnt/Pub/fault_inject/print_var/print_var.ko /mnt/Pub/fault_inject/print_var/print_var.o /mnt/Pub/fault_inject/print_var/print_var.mod.o

@@ -1,0 +1,1 @@
+cmd_/opt/trace_events/trace-events-sample.ko := ld -r -m elf_x86_64 -T /usr/src/linux-3.7.10-72.g8ec70cd/scripts/module-common.lds --build-id  -o /opt/trace_events/trace-events-sample.ko /opt/trace_events/trace-events-sample.o /opt/trace_events/trace-events-sample.mod.o

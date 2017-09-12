@@ -1,0 +1,20 @@
+total 78177
+drwxrwxrwx 1 hujun users     4096 Jul 17  2013 ABI
+-rwxrwxrwx 1 hujun users    13033 Aug  9  2013 add
+-rwxrwxrwx 1 hujun users      860 Aug  9  2013 add.s
+drwxrwxrwx 1 hujun users     4096 Dec 12 06:17 apue
+-rwxrwxrwx 1 hujun users 79573140 Nov 14  2011 dbdump.txt
+-rwxrwxrwx 1 hujun users    13223 Jun 12  2013 frame
+-rwxrwxrwx 1 hujun users    13208 Jun 12  2013 frame2
+-rwxrwxrwx 1 hujun users    13258 Dec  6 11:01 func_all
+-rwxrwxrwx 1 hujun users    11735 Feb 27  2013 hello
+-rwxrwxrwx 1 hujun users    12183 Feb 28  2013 hello2
+-rwxrwxrwx 1 hujun users    28269 Feb 28  2013 hello2.as
+-rwxrwxrwx 1 hujun users    17468 Feb 28  2013 hello2.elf
+-rwxrwxrwx 1 hujun users    11581 Feb 28  2013 hello2.s
+-rwxrwxrwx 1 hujun users     3608 Feb  2 17:12 hello.o
+-rwxrwxrwx 1 hujun users     9779 Sep 17  2011 libhid.so
+-rwxrwxrwx 1 hujun users        0 Nov  7  2011 lib.mn
+drwxrwxrwx 1 hujun users     4096 Apr 25  2013 libtool_make
+-rwxrwxrwx 1 hujun users    12782 May 28  2013 loop
+-rwxrwxrwx 1 hujun users    

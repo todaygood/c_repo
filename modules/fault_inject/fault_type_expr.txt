@@ -1,0 +1,57 @@
+[ 1918.212271]  RSP <ffff880037eabe78>
+[ 1918.212271] CR2: 0000000000000000
+[ 1918.212271] ------------[ cut here ]------------
+[ 1918.212271] WARNING: at include/linux/cpumask.h:107 kdba_kdump_prepare+0x87
+/0xb0()
+
+[ 1918.212271] Hardware name: VMware Virtual Platform
+[ 1918.212271] Modules linked in: make_fault(PN) nls_utf8(N) cifs(N) ipv6(N) 
+af_packet(N) microcode(N) loop(N)
+
+m_mod(N) floppy(N) sg(N) sr_mod(N) e1000(N) i2c_piix4(N) cdrom(N) mptctl(N) 
+i2c_core(N) intel_agp(N) thermal(N)
+
+ac(N) container(N) button(N) uhci_hcd(N) ehci_hcd(N) sd_mod(N) crc_t10dif(N) 
+usbcore(N) fan(N) processor(N) the
+
+mal_sys(N) ext3(N) mbcache(N) jbd(N) piix(N) ide_core(N) ata_piix(N) libata(N
+) mptspi(N) mptscsih(N) mptbase(N)
+
+scsi_transport_spi(N) scsi_mod(N)
+[ 1918.212271] Supported: Yes, External
+[ 1918.212271] Pid: 7000, comm: gen_fault Tainted: P          N  2.6.32.12-0.7
+-hj #2
+
+[ 1918.212271] Call Trace:
+[ 1918.212271]  [<ffffffff81007cc1>] try_stack_unwind+0x151/0x1a0
+[ 1918.212271]  [<ffffffff81006965>] dump_trace+0x95/0x2f0
+[ 1918.212271]  [<ffffffff8100783c>] show_trace_log_lvl+0x5c/0x80
+[ 1918.212271]  [<ffffffff81007875>] show_trace+0x15/0x20
+[ 1918.212271]  [<ffffffff813db5cb>] dump_stack+0x77/0x8c
+[ 1918.212271]  [<ffffffff8105b9cb>] warn_slowpath_common+0x7b/0xd0
+[ 1918.212271]  [<ffffffff8105ba34>] warn_slowpath_null+0x14/0x20
+[ 1918.212271]  [<ffffffff813281d7>] kdba_kdump_prepare+0x87/0xb0
+[ 1918.212271]  [<ffffffff810ac20c>] crash_kexec+0x5c/0x100
+[ 1918.212271]  [<ffffffff813e00b8>] oops_end+0xb8/0xf0
+[ 1918.212271]  [<ffffffff81030cd0>] no_context+0xf0/0x260
+[ 1918.212271]  [<ffffffff81030f85>] __bad_area_nosemaphore+0x145/0x210
+[ 1918.212271]  [<ffffffff810310be>] bad_area+0x4e/0x60
+[ 1918.212271]  [<ffffffff813e1c34>] do_page_fault+0x354/0x3b0
+[ 1918.212271]  [<ffffffff813df2af>] page_fault+0x1f/0x30
+[ 1918.212271]  [<ffffffffa00850a8>] mf_ioctl+0x28/0x38 [make_fault]
+[ 1918.212271]  [<ffffffff81166685>] vfs_ioctl+0x85/0xb0
+[ 1918.212271]  [<ffffffff811667da>] do_vfs_ioctl+0x8a/0x610
+[ 1918.212271]  [<ffffffff81166e01>] sys_ioctl+0xa1/0xb0
+[ 1918.212271]  [<ffffffff8100322b>] system_call_fastpath+0x16/0x1b
+[ 1918.212271]  [<00007f2c1db6ebd7>] 0x7f2c1db6ebd7
+[ 1918.212271] ---[ end trace 3decd16f49879a67 ]---
+
+
+
+
+
+
+
+
+
+

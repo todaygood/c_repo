@@ -1,0 +1,136 @@
+
+kernel_stack.ko:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000000000 <just_copy_half>:
+#include<linux/module.h>
+ 
+#define NUM 256
+ 
+static int just_copy_half(int *array, int count)
+{
+   0:	48 63 c6             	movslq %esi,%rax
+   3:	55                   	push   %rbp
+    int i;
+    int another_array[count];
+   4:	48 8d 04 85 1e 00 00 	lea    0x1e(,%rax,4),%rax
+   b:	00 
+#include<linux/module.h>
+ 
+#define NUM 256
+ 
+static int just_copy_half(int *array, int count)
+{
+   c:	48 89 e5             	mov    %rsp,%rbp
+    int i;
+    int another_array[count];
+   f:	48 83 e0 f0          	and    $0xfffffffffffffff0,%rax
+  13:	48 29 c4             	sub    %rax,%rsp
+  16:	48 8d 4c 24 0f       	lea    0xf(%rsp),%rcx
+  1b:	48 83 e1 f0          	and    $0xfffffffffffffff0,%rcx
+    for (i = 0; i < count; i++) {
+  1f:	85 f6                	test   %esi,%esi
+  21:	7e 13                	jle    36 <just_copy_half+0x36>
+  23:	31 d2                	xor    %edx,%edx
+  25:	0f 1f 00             	nopl   (%rax)
+        another_array[i] = array[i];
+  28:	8b 04 97             	mov    (%rdi,%rdx,4),%eax
+  2b:	89 04 91             	mov    %eax,(%rcx,%rdx,4)
+  2e:	48 83 c2 01          	add    $0x1,%rdx
+ 
+static int just_copy_half(int *array, int count)
+{
+    int i;
+    int another_array[count];
+    for (i = 0; i < count; i++) {
+  32:	39 d6                	cmp    %edx,%esi
+  34:	7f f2                	jg     28 <just_copy_half+0x28>
+        another_array[i] = array[i];
+    }
+    return 0;
+}
+  36:	31 c0                	xor    %eax,%eax
+  38:	c9                   	leaveq 
+  39:	c3                   	retq   
+	...
+
+Disassembly of section .exit.text:
+
+0000000000000000 <cleanup_module>:
+static void __exit kernel_stack_fini(void)
+{
+ 
+    //Do Nothing
+    return;
+}
+   0:	c3                   	retq   
+
+Disassembly of section .init.text:
+
+0000000000000000 <init_module>:
+    }
+    return 0;
+}
+ 
+static int __init kernel_stack_init(void)
+{
+   0:	53                   	push   %rbx
+   1:	31 c0                	xor    %eax,%eax
+   3:	48 81 ec 00 04 00 00 	sub    $0x400,%rsp
+   a:	48 89 e1             	mov    %rsp,%rcx
+   d:	48 89 e2             	mov    %rsp,%rdx
+    int ret = 0;
+    int total = 0;
+    int array[NUM];
+    int i;
+    for (i = 0; i < NUM; i ++)
+        array[i] = i;
+  10:	89 02                	mov    %eax,(%rdx)
+{
+    int ret = 0;
+    int total = 0;
+    int array[NUM];
+    int i;
+    for (i = 0; i < NUM; i ++)
+  12:	83 c0 01             	add    $0x1,%eax
+  15:	48 83 c2 04          	add    $0x4,%rdx
+  19:	3d 00 01 00 00       	cmp    $0x100,%eax
+  1e:	75 f0                	jne    10 <init_module+0x10>
+  20:	31 db                	xor    %ebx,%ebx
+        array[i] = i;
+ 
+    for (i = 0; i < NUM; i ++)
+  22:	48 8d 84 24 00 04 00 	lea    0x400(%rsp),%rax
+  29:	00 
+        total += array[i];
+  2a:	03 19                	add    (%rcx),%ebx
+  2c:	48 83 c1 04          	add    $0x4,%rcx
+    int array[NUM];
+    int i;
+    for (i = 0; i < NUM; i ++)
+        array[i] = i;
+ 
+    for (i = 0; i < NUM; i ++)
+  30:	48 39 c1             	cmp    %rax,%rcx
+  33:	75 ed                	jne    22 <init_module+0x22>
+        total += array[i];
+ 
+    just_copy_half(array, NUM/2);
+  35:	48 89 e7             	mov    %rsp,%rdi
+  38:	be 80 00 00 00       	mov    $0x80,%esi
+  3d:	e8 00 00 00 00       	callq  42 <init_module+0x42>
+ 
+    printk("Total: %d\n", total);
+  42:	89 de                	mov    %ebx,%esi
+  44:	48 c7 c7 00 00 00 00 	mov    $0x0,%rdi
+  4b:	31 c0                	xor    %eax,%eax
+  4d:	e8 00 00 00 00       	callq  52 <init_module+0x52>
+ 
+    return ret;
+}
+  52:	31 c0                	xor    %eax,%eax
+  54:	48 81 c4 00 04 00 00 	add    $0x400,%rsp
+  5b:	5b                   	pop    %rbx
+  5c:	c3                   	retq   
